@@ -40,8 +40,8 @@ if (TBox_3IsUB)
         complComment['DUALDUAL'] = "Follows from [" + canonne2014testing + "]";
         PAIRDUAL = 'O\\left(\\frac{\\log{N}}{\\varepsilon^2} + \\frac{\\sqrt{N}\\log{N}}{\\varepsilon^4}\\right)';
         complComment["PAIRDUAL"] = "Follows from [" + potescalable + "]";
-        SUBDUAL = '';
-        complComment["SUBDUAL"] = " ";
+        SUBDUAL = 'O\\left(\\frac{dN}{\\varepsilon^{2}}\\right)';
+        complComment["SUBDUAL"] = "Follows from ["+ adar2024improved +"]";
         CONDDUAL = 'O\\left(\\frac{\\log{N}}{\\varepsilon^2} + \\frac{\\sqrt{N}\\log{N}}{\\varepsilon^4}\\right)';
         complComment["CONDDUAL"] = "Follows from PAIRCOND vs DUAL";
         FULLDUAL = 'O\\left(\\frac{1}{\\varepsilon}\\right)';
@@ -61,7 +61,7 @@ if (TBox_3IsUB)
         CONDSUB = 'O\\left(\\frac{d^{3}N}{\\varepsilon^{4}}\\right)';
         complComment["CONDSUB"] = "Follows from up"
         FULLSUB = 'O\\left(\\frac{dN}{\\varepsilon^{2}}\\right)';
-        complComment["FULLSUB"] = "Follows from [TODO]";
+        complComment["FULLSUB"] = "Follows from ["+ adar2024improved +"]";
 
         CONDCOND = 'O\\left(\\frac{\\log{\\log{N}}}{\\varepsilon^5}\\right)';
         complComment["CONDCOND"] = "Follows from [" + falahatgar2015faster + "]";
@@ -98,8 +98,8 @@ if (TBox_3IsUB)
         complComment['DUALDUAL'] = "Follows from [" + canonne2014testing + "]";
         PAIRDUAL = 'O\\left(\\frac{\\log{N}}{\\varepsilon^2} + \\frac{\\sqrt{N}\\log{N}}{\\varepsilon^4}\\right)';
         complComment["PAIRDUAL"] = "Follows from [" + potescalable + "]";
-        SUBDUAL = '';
-        complComment["SUBDUAL"] = " ";
+        SUBDUAL = 'O\\left(\\frac{d^{2}N}{\\varepsilon^{4}}\\right)';
+        complComment["SUBDUAL"] = "Follows from [" + bhattacharyya2024testing + "]";
         CONDDUAL = 'O\\left(\\frac{\\log{N}}{\\varepsilon^2} + \\frac{\\sqrt{N}\\log{N}}{\\varepsilon^4}\\right)';
         complComment["CONDDUAL"] = "Follows from PAIRCOND vs DUAL";
         FULLDUAL = 'O\\left(\\frac{1}{\\varepsilon^2}\\right)';
