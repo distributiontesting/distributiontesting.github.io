@@ -10,6 +10,7 @@
 <meta name="author" content="Uddalok Sarkar, Yash Pote, Sayantan Sen">
 
 <link rel="stylesheet" href="dl.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 
 <!-- KaTeX -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
@@ -27,11 +28,11 @@
 <script src="js/queryComplexity.js"></script>
 </head>
 
-<body onload="ShowAll()">
+<body onload="loadDataset().then(ShowAll)">
 
 <!-- ══════════════ HEADER ══════════════════════════════════════ -->
 <header class="site-header">
-  <img class="logo" src="logo.png" alt="Distribution Testing Navigator Logo">
+  <img class="logo" src="logo.svg" alt="Distribution Testing Logo">
   <div class="header-text">
     <h1>Results in Distribution Testing</h1>
     <p>Query complexity of distribution equivalence testing with oracle access to two distributions.<br>
@@ -40,10 +41,13 @@
 </header>
 
 <div class="maintainers-bar">
-  Maintained by:
-  <a href="https://uddaloksarkar.github.io/" target="_blank">Uddalok Sarkar</a>,
-  <a href="https://yashpote.github.io/" target="_blank">Yash Pote</a> and
-  <a href="https://sites.google.com/view/sayantans/home" target="_blank">Sayantan Sen</a>
+  <span>
+    Maintained by:
+    <a href="https://uddaloksarkar.github.io/" target="_blank">Uddalok Sarkar</a>,
+    <a href="https://yashpote.github.io/" target="_blank">Yash Pote</a> and
+    <a href="https://sites.google.com/view/sayantans/home" target="_blank">Sayantan Sen</a>
+  </span>
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=distributiontesting.distributiontesting.github.io&left_color=%2364748b&right_color=%232563eb&left_text=visitors" alt="visitor count" style="vertical-align:middle;">
 </div>
 
 <!-- ══════════════ MAIN ════════════════════════════════════════ -->
