@@ -1,683 +1,764 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html><head>
-<title> Models of Tesing</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Results in Distribution Testing</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
-<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="description" content="Query complexity bounds for distribution testing problems under different sampling and query models. Maintained by Uddalok Sarkar, Yash Pote, and Sayantan Sen.">
+<meta name="keywords" content="distribution testing, query complexity, sampling models, total variation distance, conditional sampling, equivalence testing, tolerant testing">
+<meta name="author" content="Uddalok Sarkar, Yash Pote, Sayantan Sen">
 
-<meta name="description" content="Computational Complexity of Description Logics (with references). Designed and maintained by Yash Pote (2005-2013).">
-<meta name="author" content="Yash Pote, 2005-2013">
-<meta name="revisit" content="7">
+<link rel="stylesheet" href="dl.css">
 
-<meta name="keywords" content="description logic, modal logic, graded modal logic, graded modalities, SHIQ, SHOQ, SHOIQ">
-<meta name="keywords" content="decidability, undecidability, complexity, PSpace, ExpTime, NExpTime, tableau algorithm, transitive role, role hierarchy">
-<meta name="keywords" content="reasoning, concept satisfiability, concept subsumption, knowledge base, TBox consistency, ABox satisfiability, acyclic TBox">
-<meta name="keywords" content="Semantic Web, Ontology Web Language, Resource Description Framework, OWL, DAML, RDF, RDFS">
+<!-- KaTeX -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+      integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+        integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+        integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 
-<meta name="keywords" content="�������������� ������, ��������� ������, �������������� ���������, ���������, ������������� �������">
-<meta name="keywords" content="Yash Pote, NUS">
+<!-- Site scripts (dataset must load before queryComplexity) -->
+<script src="js/read_logic.js"></script>
+<script src="js/dataset.js"></script>
+<script src="js/displaying.js"></script>
+<script src="js/queryComplexity.js"></script>
+</head>
 
-<!--link rel="shortcut icon" type="image/x-icon" href="dl.ico"-->
-<link rel="stylesheet"    type="text/css"     href="dl.css">
+<body onload="ShowAll()">
 
-<base target="_blank">
+<!-- ══════════════ HEADER ══════════════════════════════════════ -->
+<header class="site-header">
+  <img class="logo" src="logo.png" alt="Distribution Testing Navigator Logo">
+  <div class="header-text">
+    <h1>Results in Distribution Testing</h1>
+    <p>Query complexity of distribution equivalence testing with oracle access to two distributions.<br>
+       This information is (always) incomplete and updated often.</p>
+  </div>
+</header>
 
-<script type="text/javascript" src="js/read_logic.js"></script>
-<script type="text/javascript" src="js/displaying.js"></script>
-<script type="text/javascript" src="js/queryComplexity.js"></script>
-<script type="text/javascript" src="js/data.js"></script>
-
- <!-- Set up mathjax -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-<!-- Set up KaTeX -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
-
-<!-- The loading of KaTeX is deferred to speed up page rendering -->
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
-
-<!-- To automatically render math in text elements, include the auto-render extension: -->
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
-
-
-	</head>
-<body  onload="ShowAll()">
-
-<table border="0" cellspacing="0" cellpadding="0" align="center" width="100%">
-<tr>
-<td width="150"><a href="http://127.0.0.1/" title="Homepage"><img
- align="left" width="200" height="120" border="0" alt="Logo" src="logo.png"></a></td>
-<td align="center">
-<h1 style="margin-top:5pt;margin-bottom:3pt">Results in Distribution Testing</h1>
-<div style="font-size:10pt;font-weight:bold;text-align:center;margin-bottom:7pt">
-Note: the information here is (always) incomplete and
-<a style="color:teal" title="Updates of the Navigator" href="news.html">updated</a> often
+<div class="maintainers-bar">
+  Maintained by:
+  <a href="https://uddaloksarkar.github.io/" target="_blank">Uddalok Sarkar</a>,
+  <a href="https://yashpote.github.io/" target="_blank">Yash Pote</a> and
+  <a href="https://sites.google.com/view/sayantans/home" target="_blank">Sayantan Sen</a>
 </div>
 
-<!-- <table border="0" cellspacing="0" cellpadding=5><tr><td style="background:#f7f7f7; text-align:center; border-radius:7px;">
-<span class="nobr">Base description logic: <em>A</em>ttributive <em>L</em>anguage with <em>C<sub>&nbsp;</sub></em>omplements</span>
-<br><span style="color:blue"><span class="nobr">
-<em>ALC</em> ::=
-&nbsp; &perp;
-&nbsp;|&nbsp; T
-&nbsp;|&nbsp; <i>A</i>
-&nbsp;|&nbsp; &not;<i>C</i>
-&nbsp;|&nbsp; <i>C</i> &cap; <i>D</i>
-&nbsp;|&nbsp; <i>C</i> &cup; <i>D</i>
-&nbsp;|&nbsp; &exist;<i>R</i>.<i>C</i>
-&nbsp;|&nbsp; &forall;<i>R</i>.<i>C</i></span></span>
-<br>It corresponds to the multi-modal logic <b>K<sub>m</sub></b>
-</td></tr></table> -->
-<td width="150"><a href="http://127.0.0.1/" title="Homepage"><img
- align="left" width=200 height=120 border="0" alt="Logo" src="logo.png"></a></td>
-</table>
+<!-- ══════════════ MAIN ════════════════════════════════════════ -->
+<main class="main-content">
+
+  <!-- ── Controls ─────────────────────────────────────────────── -->
+  <div class="card">
+    <div class="card-header">Configuration</div>
+    <div class="card-body">
+      <form name="LogicForm">
+        <div class="controls-grid">
+
+          <div class="control-group">
+            <h3>Closeness Distance</h3>
+            <label class="radio-option">
+              <input onclick="ShowAll()" type="radio" name="TBoxOpt_1" value="Tv_1"> \(d_{\mathrm{TV}}\)
+            </label>
+            <label class="radio-option">
+              <input onclick="ShowAll()" type="radio" name="TBoxOpt_1" value="Zero_1" checked> \(0\) &nbsp;(non-tolerant)
+            </label>
+          </div>
+
+          <div class="control-group">
+            <h3>Farness Distance</h3>
+            <label class="radio-option">
+              <input onclick="ShowAll()" type="radio" name="TBoxOpt_2" value="Tv_2" checked> \(d_{\mathrm{TV}}\)
+            </label>
+          </div>
+
+          <div class="control-group">
+            <h3>Bound Type</h3>
+            <label class="radio-option">
+              <input onclick="ShowAll()" type="radio" name="TBoxOpt_3" value="UB" checked> Upper Bound
+            </label>
+            <label class="radio-option">
+              <input onclick="ShowAll()" type="radio" name="TBoxOpt_3" value="LB"> Lower Bound
+            </label>
+          </div>
 
-
-<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
-        <tbody valign="middle"><tr>
-        <td align="right">Maintained by: <a href="https://uddaloksarkar.github.io/">Uddalok Sarkar</a>, <a href="https://yashpote.github.io/">Yash Pote</a> and <a href="https://sites.google.com/view/sayantans/home">Sayantan Sen</a><br>
-</table>
-
-
-<form name="LogicForm" style="margin-top:3pt;margin-bottom:3pt">
-
-<table width="99%" border="1" cellspacing="0" cellpadding="3" align="center" style="border-radius:7px;border:1px solid black;">
-<tbody valign="top">
-        <tr><td colspan="3">
-
-                <h3>Closeness Distance  <span id="TBoxInternalize">:</span></h3>
-
-                <table width="100%" border="0" cellspacing="1" cellpadding="1">
-                <tbody>
-
-                <tr class="hl">
-                        <td><label for="TB1"><span><div><span class="nobr">
-                                <input onClick="ShowAll()" type=radio name="TBoxOpt_1" id="TB1" value="Tv_1"> \(d_{TV}\) 
-                        </span></div></span></label></td>
-                </tr>
-               <!-- <tr class="hl">
-                        <td><label for="TB2"><span><div><span class="nobr">
-                                <input onClick="ShowAll()" type=radio name="TBoxOpt_1" id="TB2" value="Infty_1"> \(d_{\infty}\)
-                        </span></div></span></label></td>
-                </tr> -->
-
-		<tr class="hl">
-                        <td><label for="TB3"><span><div><span class="nobr">
-                                <input onClick="ShowAll()" type=radio name="TBoxOpt_1" id="TB3" value="Zero_1" checked> \(0\)
-                        </span></div></span></label></td>
-                </tr>
-		</td>
-                </tbody>
-                </table>
-
-
-		<td>
-
-                <h3>Farness Distance  <span id="TBoxInternalize">:</span></h3>
-
-		<table width="100%" border="0" cellspacing="1" cellpadding="1">
-		<tbody>
-		
-		<tr class="hl">
-			<td><label for="TB1"><span><div><span class="nobr">
-				<input onClick="ShowAll()" type=radio name="TBoxOpt_2" id="TB1" value="Tv_2" checked> \(d_{TV}\)
-			</span></div></span></label></td>
-	        </tr>
-                <!-- <tr class="hl">
-			<td><label for="TB2"><span><div><span class="nobr">
-				<input onClick="ShowAll()" type=radio name="TBoxOpt_2" id="TB2" value="Infty_2"> \(d_{\infty}\)
-			</span></div></span></label></td>
-		
-                </tr> -->
-                <!-- <tr class="hl">
-			<td><label for="TB3"><span><div><span class="nobr">
-				<input onClick="ShowAll()" type=radio name="TBoxOpt_2" id="TB3" value="Hellinger_2"> \(d_H\)
-			</span></div></span></label></td>
-		</tr> -->
-		</td>
-                </tbody>
-                </table>
-
-                <td>
-                <h3> Bound  <span id="TBoxInternalize">:</span></h3>
-
-                <table width="100%" border="0" cellspacing="1" cellpadding="1">
-                <tbody>
-
-                <tr class="hl">
-                        <td><label for="LB"><span><div><span class="nobr">
-                                <input onClick="ShowAll()" type=radio name="TBoxOpt_3" id="LB" value="LB"> Lower Bound
-                        </span></div></span></label></td>
-                </tr>
-                <tr class="hl">
-
-                        <td><label for="UB"><span><div><span class="nobr">
-                                <input onClick="ShowAll()" type=radio name="TBoxOpt_3" id="UB" value="UB" checked> Upper Bound
-                        </span></div></span></label></td>
-                </tr>
-                </td>
-		</tr>
-		
-		<tr> 
-                   
-		</tr>
-	
-		</tbody>
-		</table>
-		
-
-
-</table>
-</form>
-
-
-
-
-
-
-
-
-
-<!-- ======================== ANSWERS ============================================================== -->
-
-<form name="commentForm" style="margin-top:3pt;margin-bottom:3pt">
-
-<table width="99%" border="1" cellspacing="0" cellpadding=3 align="center" style="border-radius:7px 7px 7px 7px;">
-<thead><th colspan="9" align="center" bgcolor="#eebbbb" style="border-radius:6px 6px 0px 0px;">
-Query Complexity of Model vs Model setup
-
-<tbody>
-<!--
-<tr align="center" style="font-weight:bold" bgcolor="#eeeeee">
-<td width="10%">Reasoning problem
-<td width="18%">Complexity<sup><a target="_self" href="#note8">8</a></sup>
-<td width="70%">Comments&nbsp;and&nbsp;references
--->
-
-<tr>
-<td width="10%" align="center">
-<td width="15%" align="center">SAMP
-<td width="10%" align="center">DUAL
-<td width="15%" align="center">PAIRCOND
-<td width="15%" align="center">SUBCOND
-<td width="15%" align="center">COND
-<!-- <td width="15%" align="center">FULL -->
-	
-<!-- <td width="18%" align="center"><span class="nobr"><b><span id="ConcSatC">&nbsp;</span></b></span>
-<td width="70%"><span id="ConcSatR">&nbsp;</span> -->
-
-<tr><td align="center">SAMP
-<td align="center"><span class="nobr"><span id="sampSamp">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="sampSamp" checked></span>
-<!-- [<a target="_self" style="color:blue" href="javascript:void(0);" onmouseover="window.status=OMOString+1+OMOEnd;return true;" onmouseout="window.status=EmptyString;" onclick="GoToRef('batu2013testing_Anchor');">1</a>] -->
-
-<!-- <tr><td align="center">EVAL
-<td align="center"><span class="nobr"><b><span id="evalSamp">&nbsp;</span></b></span>
-<td><span id="evalEval">&nbsp;</span>
-
-<tr><td align="center">PR
-<td align="center"><span class="nobr"><b><span id="prSamp">&nbsp;</span></b></span>
-<td><span id="prEVAL">&nbsp;</span>
-<td><span id="prPr">&nbsp;</span> -->
-
-	
-<tr><td align="center">DUAL
-<td align="center"><span class="nobr"><b><span id="dualSamp">&nbsp;</span></b><input onClick="displayComments()" type=radio id="com" name="combaton" value="dualSamp"></span>
-<td><span id="dualDual">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="dualDual">
-
-
-<tr><td align="center">PAIRCOND
-<td align="center"><span class="nobr">
-<b><span id="pairSamp">&nbsp;</span></b><input onClick="displayComments()" type=radio id="com" name="combaton" value="pairSamp"></span>
-<td><span id="pairDual">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="pairDual">
-<td><span id="pairPair">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="pairPair">
-
-
-
-<tr><td align="center">SUBCOND
-<td align="center"><span class="nobr">
-<b><span id="subSamp">&nbsp;</span></b><input onClick="displayComments()" type=radio id="com" name="combaton" value="subSamp"></span>
-<td><span id="subDual">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="subDual">
-<td><span id="subPair">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="subPair">
-<td><span id="subSub">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="subSub">
-	
-	
-
-<tr><td align="center">COND
-<td align="center"><span class="nobr"><b><span id="condSamp">&nbsp;</span></b><input onClick="displayComments()" type=radio id="com" name="combaton" value="condSamp"></span>
-<td><span id="condDual">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="condDual">
-<td><span id="condPair">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="condPair">
-<td><span id="condSub">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="condSub">
-<td><span id="condCond">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="condCond">
-
-
-<tr><td align="center">FULL
-<td align="center"><span class="nobr">
-<b><span id="fullSamp">&nbsp;</span></b><input onClick="displayComments()" type=radio id="com" name="combaton" value="fullSamp"></span>
-<td><span id="fullDual">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="fullDual">
-<td><span id="fullPair">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="fullPair">
-<td><span id="fullSub">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="fullSub">
-<td><span id="fullCond">&nbsp;</span><input onClick="displayComments()" type=radio id="com" name="combaton" value="fullCond">
-</tbody>
-</table>
-
-
-</form>
-<!--
-<br>
-<br>
-<a name=beta></a>
-<table border="0" cellspacing=0 cellpadding="0" align=right width=20% style="margin-right:3pt;">
-<tr><td style="font-size:10pt;font-style:italic;text-align:right;border-top:2px solid #000000">
-The term "beta" is<br>an abbreviation for<br>"beta than nothing",
-<br>which is exactly what<br>a beta software is.<br><br>
-Guy Kawasaki<br> "The Macintosh Way"
-</table>
--->
-
-<!-- =======================================COMMENTS=============================-->
-<hr>
-
-<div class="comments" align="center">
-        <span id="resultcomment">&nbsp;</span>
-</div>
-
-<!-- ======================================= NOTES ============================== -->
-
- <hr width="99%">
-
-<table border="0" cellspacing="0" cellpadding="0" width="99%">
-<tr><td>
-<div style="margin-left:11pt;"><b>Notes:</b></div>
-<ol style="margin-top:5pt;margin-right:10pt;font-size:10pt;text-align:justify;">
-<li><a name="note1"></a>
-The Total Variation distance \(d_{TV}\) between two probability distributions \(P\) and \(Q\) is defined as: \(d_{TV}(P, Q) = \frac{1}{2} \sum_{x} |P(x) - Q(x)|\)
-<li><a name="note2"></a>
-The Support of a distribution is denoted by \(\Sigma\), and the Support size is denoted by \(N\), so that \(|\Sigma| = N\). For joint distributions on \(d\) dimensions, the Support is denoted by \(\Sigma^d\) and the corresponding Support size is \(N^d\).
-<li><a name="note3"></a>
-The query complexity of a distribution testing problem is the number of queries made by the algorithm to the distribution oracle to distinguish between the null hypothesis and the alternative hypothesis.
-</ol>
-</td></tr></table>
-
-<!-- ======================================= REFERENCES ============================== -->
-
-<hr>
-
-<h2 align="left" style="margin-left:15pt">References</h2>
-
-<script type="text/javascript">var RefLabel=0;</script>
-<ol style="margin-right:10pt;font-size:11pt;" class="bib">
-
-
-<li><script type="text/javascript">var batu2013testing; CreateRefLink('batu2013testing');</script>
-<span class="paper_title">
-	Testing Closeness of Discrete Distributions
-</span>
-<span class="paper_link">
-			[ <a href="https://arxiv.org/abs/1009.5397">Paper</a> |
-			<script type="text/javascript">CreateAbstractBibTeXLinks('batu2013testing');</script> ]
-</span>
-<div class="bibtex" id="batu2013testing_bibtex">
-        @article{batu2013testing,
-        title={Testing closeness of discrete distributions},
-        author={Batu, Tu{\u{g}}kan and Fortnow, Lance and Rubinfeld, Ronitt and 
-                Smith, Warren D and White, Patrick},
-        journal={Journal of the ACM (JACM)},
-        volume={60},
-        number={1},
-        pages={1--25},
-        year={2013},
-        publisher={ACM New York, NY, USA}
-        }</div>
-<div class="paper_authors">
-        Tugkan Batu,
-        Lance Fortnow,
-        Ronitt Rubinfeld,
-        Warren D. Smith,
-        Patrick White
-</div>
-
-<li><script type="text/javascript">var valiant2017automatic; CreateRefLink('valiant2017automatic');</script>
-<span class="paper_title">
-        An Automatic Inequality Prover and Instance Optimal Identity Testing
-</span>
-<span class="paper_link">
-        [ <a href="http://theory.stanford.edu/~valiant/papers/instanceOpt.pdf">Paper</a> |
-        <script type="text/javascript">CreateAbstractBibTeXLinks('valiant2017automatic');</script> ]
-</span>
-<div class="bibtex" id="valiant2017automatic_bibtex">
-        @article{valiant2017automatic,
-        title={An Automatic Inequality Prover and Instance Optimal Identity Testing},
-        author    = {Gregory Valiant and
-        Paul Valiant},
-        journal={{SIAM} J. Comput.},
-        volume    = {46},
-        number    = {1},
-        pages     = {429--455},
-        year      = {2017}
-        }</div>
-<div class="paper_authors">
-        Gregory Valiant,
-        Paul Valiant,
-</div>
-
-
-<li><script type="text/javascript">var nar2020cond; CreateRefLink('nar2020cond');</script>
-<span class="paper_title">
-        On Distribution Testing in the Conditional Sampling Model
-</span>
-<span class="paper_link">
-        [ <a href="https://arxiv.org/pdf/2007.09895.pdf">Paper</a> |
-        <script type="text/javascript">CreateAbstractBibTeXLinks('nar2020cond');</script> ]
-</span>
-<div class="bibtex" id="nar2020cond_bibtex">
-        @article{nar2020cond,
-        author    = {Shyam Narayanan},
-        title     = {Tolerant Distribution Testing in the Conditional Sampling Model},
-        journal   = {CoRR},
-        volume    = {abs/2007.09895},
-        year      = {2020}
-        }</div>
-<div class="paper_authors">
-        Shyam Narayanan
-</div>
-
-
-<li><script type="text/javascript">var bc18; CreateRefLink('bc18');</script>
-<span class="paper_title">
-        Property Testing of Joint Distributions using Conditional Samples
-</span>
-<span class="paper_link">
-        [ <a href="https://arxiv.org/pdf/1702.01454v2.pdf">Paper</a> |
-        <script type="text/javascript">CreateAbstractBibTeXLinks('bc18');</script> ]
-</span>
-<div class="bibtex" id="bc18_bibtex">
-        @article{bhattacharyya2018property,
-        author    = {Rishiraj Bhattacharyya and
-        Sourav Chakraborty},
-        title     = {Property Testing of Joint Distributions using Conditional Samples},
-        journal   = {CoRR},
-        volume    = {abs/1702.01454},
-        year      = {2017}
-        }</div>
-<div class="paper_authors">
-        Rishiraj Bhattacharyya,
-        Sourav Chakraborty
-</div>
-
-
-<li><script type="text/javascript">var canonne2017testing; CreateRefLink('canonne2017testing');</script>
-<span class="paper_title">
-        Testing Bayesian Networks
-</span>
-<span class="paper_link">
-        [ <a href="https://arxiv.org/pdf/1612.03156.pdf">Paper</a> |
-        <script type="text/javascript">CreateAbstractBibTeXLinks('canonne2017testing');</script> ]
-</span>
-<div class="bibtex" id="canonne2017testing_bibtex">
-        @inproceedings{canonne2017testing,
-        title={Testing bayesian networks},
-        author={Canonne, Cl{\'e}ment L and Diakonikolas, Ilias and Kane, Daniel M and Stewart, Alistair},
-        booktitle={Conference on Learning Theory},
-        pages={370--448},
-        year={2017},
-        organization={PMLR}     
-        }</div>
-<div class="paper_authors">
-        Clement L. Canonne,
-        Ilias Diakonikolas,
-        Daniel M. Kane,
-        Alistair Stewart
-</div>
-
-<li><script type="text/javascript">var canonne2015testing; CreateRefLink('canonne2015testing');</script>
-<span class="paper_title">
-        Testing probability distributions using conditional samples
-</span>
-<span class="paper_link">
-        [ <a href="https://arxiv.org/pdf/1211.2664/">Paper</a> |
-        <script type="text/javascript">CreateAbstractBibTeXLinks('canonne2015testing');</script> ]
-</span>
-<div class="bibtex" id="canonne2015testing_bibtex">
-        @article{canonne2015testing,
-        title={Testing probability distributions using conditional samples},
-        author={Canonne, Cl{\'e}ment L and Ron, Dana}
-        volume={44},
-        number={3},
-        pages={540--616},
-        year={2015},
-        publisher={SIAM}        
-        }</div>
-<div class="paper_authors">
-        Clement L. Canonne,
-        Dana Ron,
-        Rocco A. Servedio
-</div>
-
-<li><script type="text/javascript">var chakraborty2013power; CreateRefLink('chakraborty2013power');</script>
-        <span class="paper_title">
-                On the power of conditional samples in distribution testing
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://arxiv.org/pdf/1210.8338.pdf">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('chakraborty2013power');</script> ]
-        </span>
-        <div class="bibtex" id="chakraborty2013power_bibtex">
-        @inproceedings{chakraborty2013power,
-        title={On the power of conditional samples in distribution testing},
-        author={Chakraborty, Sourav and Fischer, Eldar and Goldhirsh, Yonatan and Matsliah, Arie},
-        booktitle={Proceedings of the 4th conference on Innovations in Theoretical Computer Science},
-        pages={561--580},
-        year={2013}
-        }</div>
-<div class="paper_authors">
-        Sourav Chakraborty,
-        Eldar Fischer,
-        Yonatan Goldhirsh,
-        Arie Matsliah
-</div>                
-        
-
-<li><script type="text/javascript">var potescalable; CreateRefLink('potescalable');</script>
-        <span class="paper_title">
-                On Scalable Testing of Samplers
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://openreview.net/pdf?id=qHs3qeaQjgl">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('potescalable');</script> ]
-        </span>
-        <div class="bibtex" id="potescalable_bibtex">
-        @inproceedings{potescalable,
-        title={On Scalable Testing of Samplers},
-        author={Pote, Yash and Meel, Kuldeep S},
-        booktitle={Advances in Neural Information Processing Systems}
-        }</div>
-<div class="paper_authors">
-        Yash Pote,
-        Kuldeep S. Meel
-</div>               
-        
-<li><script type="text/javascript">var falahatgar2015faster; CreateRefLink('falahatgar2015faster');</script>
-        <span class="paper_title">
-                Faster Algorithms for Testing under Conditional Sampling
-        </span>
-        <span class="paper_link">
-                                [ <a href="http://proceedings.mlr.press/v40/Falahatgar15.pdf">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('falahatgar2015faster');</script> ]
-        </span>
-        <div class="bibtex" id="falahatgar2015faster_bibtex">
-        @inproceedings{falahatgar2015faster,
-        title={Faster algorithms for testing under conditional sampling},
-        author={Falahatgar, Moein and Jafarpour, Ashkan and Orlitsky, Alon and Pichapati, Venkatadheeraj and Suresh, Ananda Theertha},
-        booktitle={Conference on Learning Theory},
-        pages={607--636},
-        year={2015},
-        organization={PMLR}
-        }</div>
-<div class="paper_authors">
-        Moein Falahatgar,
-        Ashkan Jafarpour,
-        Alon Orlitsky,
-        Venkatadheeraj Pichapati,
-        Ananda Theertha Suresh
-</div>
-<li><script type="text/javascript">var bhattacharyya2024testing; CreateRefLink('bhattacharyya2024testing');</script>
-        <span class="paper_title">
-                Testing Self-Reducible Samplers
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://arxiv.org/pdf/2312.10999">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('bhattacharyya2024testing');</script> ]
-        </span>
-        <div class="bibtex" id="bhattacharyya2024testing_bibtex">
-        @inproceedings{bhattacharyya2024testing,
-        title={Testing Self-Reducible Samplers},
-        author={Bhattacharyya, Rishiraj and Chakraborty, Sourav and Pote, Yash and Sarkar, Uddalok and Sen, Sayantan},
-        booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-        volume={38},
-        number={8},
-        pages={7952--7960},
-        year={2024}
-        }
         </div>
-        <div class="paper_authors">
-                Rishiraj Bhattacharyya,
-                Sourav Chakraborty,
-                Yash Pote,
-                Uddalok Sarkar,
-                Sayantan Sen
+      </form>
+    </div>
+  </div>
+
+  <!-- ── How to Read ──────────────────────────────────────────── -->
+  <details class="htr-details">
+    <summary class="htr-summary">How to Read This Table</summary>
+    <div class="htr-body">
+
+      <!-- ① The Setup -->
+      <div class="setup-section">
+        <div class="htr-section-title">The Problem Setup</div>
+        <p>
+          In the <strong>distribution equivalence (closeness) testing</strong> problem, we are given
+          two unknown discrete probability distributions \(P\) and \(Q\) over a common support
+          \(\Sigma\) of size \(N\), and we wish to decide:
+        </p>
+        <p style="text-align:center; margin:0; font-size:14.5px;">
+          either &nbsp;\(d(P,Q) \leq \varepsilon_1\)&nbsp; (they are <em>close</em>)
+          &nbsp;&nbsp; vs &nbsp;&nbsp;
+          \(d(P,Q) \geq \varepsilon_2\)&nbsp; (they are <em>far</em>),
+        </p>
+        <p>
+          where \(d\) is a distance measure (\(d_{\mathrm{TV}}\), etc.) and
+          \(\varepsilon_1 < \varepsilon_2\) are the closeness and farness thresholds.
+          The <em>non-tolerant</em> case sets \(\varepsilon_1 = 0\) (exact equality vs. far).
+        </p>
+        <p>
+          Since \(P\) and \(Q\) are unknown, we can only interact with them through
+          <strong>sampling oracles</strong>.
+          This table considers the setting where you have <em>different oracle types</em>
+          for each distribution:
+        </p>
+
+        <!-- Visual diagram -->
+        <div class="setup-diagram">
+          <div class="dist-box">
+            <div class="dist-name">\(P\)</div>
+            <div class="oracle-badge">ROW ORACLE</div>
+            <div class="dist-role">First distribution<br>oracle type given by <strong>row</strong></div>
+          </div>
+
+          <div class="arrow-block">
+            <div class="arrow-line">⟷</div>
+            <div class="arrow-label">Test:<br>\(d(P,Q) \leq \varepsilon_1\)?<br><em>vs</em><br>\(d(P,Q) \geq \varepsilon_2\)?</div>
+          </div>
+
+          <div class="dist-box">
+            <div class="dist-name">\(Q\)</div>
+            <div class="oracle-badge">COLUMN ORACLE</div>
+            <div class="dist-role">Second distribution<br>oracle type given by <strong>column</strong></div>
+          </div>
         </div>
 
-<li><script type="text/javascript">var kumar2023tolerant; CreateRefLink('kumar2023tolerant');</script>
-        <span class="paper_title">
-                Tolerant Testing of High-Dimensional Samplers with Subcube Conditioning
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://arxiv.org/pdf/2308.04264">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('kumar2023tolerant');</script> ]
-        </span>
-        <div class="bibtex" id="kumar2023tolerant_bibtex">
-        @article{kumar2023tolerant,
-        title={Tolerant Testing of High-Dimensional Samplers with Subcube Conditioning},
-        author={Kumar, Gunjan and Meel, Kuldeep S and Pote, Yash},
-        journal={arXiv preprint arXiv:2308.04264},
-        year={2023}
-        }
-        </div>
-        <div class="paper_authors">
-                Gunjan Kumar,
-                Kuldeep S. Meel,
-                Yash Pote
+        <p>
+          The cell at row <strong>A</strong> and column <strong>B</strong> gives the
+          <strong>query complexity</strong>&thinsp;&mdash;&thinsp;the number of oracle calls
+          (to either oracle) required by the best algorithm to solve the problem, up to constant
+          and polylogarithmic factors. A <strong>?</strong> means the result is an open problem.
+        </p>
+      </div>
+
+      <!-- ② Oracle power hierarchy -->
+      <div class="hierarchy-section">
+        <div class="htr-section-title">Known Oracle Relationships (Partial Order)</div>
+
+        <!-- Hasse diagram as inline SVG -->
+        <div class="hasse-wrap">
+          <svg class="hasse-svg" viewBox="0 0 420 265" xmlns="http://www.w3.org/2000/svg" aria-label="Hasse diagram of oracle relationships">
+            <defs>
+              <marker id="arr" markerWidth="7" markerHeight="5" refX="5" refY="2.5" orient="auto">
+                <polygon points="0 0, 7 2.5, 0 5" fill="#94a3b8"/>
+              </marker>
+            </defs>
+
+            <!-- ── FULL ─────────────────────────────────────────────── -->
+            <rect x="175" y="5" width="70" height="28" rx="5" fill="#b91c1c"/>
+            <text x="210" y="24" fill="white" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui,sans-serif">FULL</text>
+
+            <!-- FULL → COND -->
+            <line x1="210" y1="33" x2="210" y2="58" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- ── COND ─────────────────────────────────────────────── -->
+            <rect x="175" y="61" width="70" height="28" rx="5" fill="#7c3aed"/>
+            <text x="210" y="80" fill="white" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui,sans-serif">COND</text>
+
+            <!-- COND branches: trunk down, then left to SUBCOND, right to PAIRCOND -->
+            <line x1="210" y1="89" x2="210" y2="103" stroke="#94a3b8" stroke-width="1.5"/>
+            <line x1="130" y1="103" x2="320" y2="103" stroke="#94a3b8" stroke-width="1.5"/>
+            <line x1="130" y1="103" x2="130" y2="114" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+            <line x1="320" y1="103" x2="320" y2="114" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- ── SUBCOND (left branch, continues chain) ──────────── -->
+            <rect x="88" y="117" width="84" height="28" rx="5" fill="#0d9488"/>
+            <text x="130" y="136" fill="white" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui,sans-serif">SUBCOND</text>
+
+            <!-- ── PAIRCOND (right branch, isolated) ──────────────── -->
+            <rect x="276" y="117" width="88" height="28" rx="5" fill="#0891b2"/>
+            <text x="320" y="136" fill="white" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui,sans-serif">PAIRCOND</text>
+            <!-- "only ⊂ COND" annotation -->
+            <text x="320" y="157" fill="#94a3b8" font-size="10" font-style="italic" text-anchor="middle" font-family="system-ui,sans-serif">only ⊂ COND known</text>
+
+            <!-- SUBCOND → DUAL -->
+            <line x1="130" y1="145" x2="130" y2="170" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- ── DUAL ────────────────────────────────────────────── -->
+            <rect x="95" y="173" width="70" height="28" rx="5" fill="#0284c7"/>
+            <text x="130" y="192" fill="white" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui,sans-serif">DUAL</text>
+
+            <!-- DUAL → SAMP -->
+            <line x1="130" y1="201" x2="130" y2="218" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+            <!-- ── SAMP ────────────────────────────────────────────── -->
+            <rect x="95" y="221" width="70" height="28" rx="5" fill="#64748b"/>
+            <text x="130" y="240" fill="white" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui,sans-serif">SAMP</text>
+
+            <!-- Legend -->
+            <line x1="10" y1="257" x2="34" y2="257" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+            <text x="40" y="261" fill="#64748b" font-size="10.5" font-family="system-ui,sans-serif">A → B : A can be simulated by B (B is at least as powerful)</text>
+          </svg>
         </div>
 
-<li><script type="text/javascript">var valiant2008testing; CreateRefLink('valiant2008testing');</script>
-        <span class="paper_title">
-                Testing Symmetric Properties of Distributions
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=379cf3319a55653fc9baf7489e0a4766c5c70a5f">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('valiant2008testing');</script> ]
-        </span>
-        <div class="bibtex" id="valiant2008testing_bibtex">
-        @inproceedings{valiant2008testing,
-        title={Testing symmetric properties of distributions},
-        author={Valiant, Paul},
-        booktitle={Proceedings of the fortieth annual ACM symposium on Theory of computing},
-        pages={383--392},
-        year={2008}
-        }
-        </div>
-        <div class="paper_authors">
-                Paul valiant
-        </div>
-<li><script type="text/javascript">var canonne2014testing; CreateRefLink('canonne2014testing');</script>
-        <span class="paper_title">
-                Testing probability distributions underlying aggregated data
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=379cf3319a55653fc9baf7489e0a4766c5c70a5f">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('canonne2014testing');</script> ]
-        </span>
-        <div class="bibtex" id="canonne2014testing_bibtex">
-        @inproceedings{canonne2014testing,
-        title={Testing probability distributions underlying aggregated data},
-        author={Canonne, Cl{\'e}ment and Rubinfeld, Ronitt},
-        booktitle={International Colloquium on Automata, Languages, and Programming},
-        pages={283--295},
-        year={2014},
-        organization={Springer}
-        }
-        </div>
-        <div class="paper_authors">
-                Clement Canonne, Ronitt Rubinfeld
-        </div>
+        <p class="hierarchy-note">
+          The chain <strong>SAMP ⊂ DUAL ⊂ SUBCOND ⊂ COND ⊂ FULL</strong> is fully established.
+          <strong>PAIRCOND</strong> is a separate branch: the only known relationship is
+          PAIRCOND ⊂ COND (and transitively PAIRCOND ⊂ FULL).
+          Whether PAIRCOND can simulate — or be simulated by — SAMP, DUAL, or SUBCOND
+          remains <strong>open</strong>.
+        </p>
+      </div>
 
-<li><script type="text/javascript">var jiao2018minimax; CreateRefLink('jiao2018minimax');</script>
-        <span class="paper_title">
-                Minimax Estimation of the L1 Distance
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://arxiv.org/pdf/1705.00807">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('jiao2018minimax');</script> ]
-        </span>
-        <div class="bibtex" id="jiao2018minimax_bibtex">
-        @article{jiao2018minimax,
-        title={Minimax estimation of the $ L\_ $\{$1$\}$ $ distance},
-        author={Jiao, Jiantao and Han, Yanjun and Weissman, Tsachy},
-        journal={IEEE Transactions on Information Theory},
-        volume={64},
-        number={10},
-        pages={6672--6706},
-        year={2018},
-        publisher={IEEE}
-        }
-        </div>
-        <div class="paper_authors">
-                Jiantao Jiao, Yanjun Han, Tsachy Weissman
-        </div>
+      <!-- ③ Oracle definitions -->
+      <div>
+        <div class="htr-section-title">Oracle Definitions</div>
+        <div class="oracle-grid">
 
-<li><script type="text/javascript">var chakraborty2024tight; CreateRefLink('chakraborty2024tight');</script>
-        <span class="paper_title">
-                Tight Lower Bound on Equivalence Testing in Conditional Sampling Model
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://arxiv.org/pdf/2308.11558">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('chakraborty2024tight');</script> ]
-        </span>
-        <div class="bibtex" id="chakraborty2024tight_bibtex">
-        @inproceedings{chakraborty2024tight,
-        title={Tight lower bound on equivalence testing in conditional sampling model},
-        author={Chakraborty, Diptarka and Chakraborty, Sourav and Kumar, Gunjan},
-        booktitle={Proceedings of the 2024 Annual ACM-SIAM Symposium on Discrete Algorithms (SODA)},
-        pages={4371--4394},
-        year={2024},
-        organization={SIAM}
-        }
-        </div>
-        <div class="paper_authors">
-                Diptarka Chakraborty, Sourav Chakraborty, Gunjan Kumar
-        </div>
+          <div class="oracle-card" data-oracle="SAMP">
+            <div class="oracle-card-header">
+              <span class="oracle-tag">SAMP</span>
+              <span class="oracle-full-name">Standard Sampling Oracle</span>
+            </div>
+            <p class="oracle-desc">
+              The weakest and most natural access model.
+              Each query returns one independent sample drawn from the distribution.
+              No other information is available.
+            </p>
+            <div class="oracle-formal">
+              \(\mathsf{SAMP}(P)\): draw \(x \sim P\) uniformly at random.
+            </div>
+          </div>
 
-<li><script type="text/javascript">var adar2024improved; CreateRefLink('adar2024improved');</script>
-        <span class="paper_title">
-                Improved Bounds for High-Dimensional Equivalence and Product Testing using Subcube Queries
-        </span>
-        <span class="paper_link">
-                                [ <a href="https://eldar.cswp.cs.technion.ac.il/wp-content/uploads/sites/55/2024/07/subcube-1.pdf">Paper</a> |
-                                <script type="text/javascript">CreateAbstractBibTeXLinks('adar2024improved');</script> ]
-        </span>
-        <div class="bibtex" id="adar2024improved_bibtex">
-        @article{adar2024improved,
-        title={Improved Bounds for High-Dimensional Equivalence and Product Testing using Subcube Queries},
-        author={Adar, Tomer and Fischer, Eldar and Levi, Amit},
-        journal={arXiv preprint arXiv:2408.02347},
-        year={2024}
-        }
-        </div>
-        <div class="paper_authors">
-                Tomer Adar, Eldar Fischer, Amit Levi
-        </div>
+          <div class="oracle-card" data-oracle="DUAL">
+            <div class="oracle-card-header">
+              <span class="oracle-tag">DUAL</span>
+              <span class="oracle-full-name">Dual / Evaluation Oracle</span>
+            </div>
+            <p class="oracle-desc">
+              Each query is either a sample draw from the distribution, or a
+              <em>probability evaluation</em> at any chosen element.
+              Provides arithmetic access to probability values but no conditional samples.
+            </p>
+            <div class="oracle-formal">
+              \(\mathsf{DUAL}(P)\): either draw \(x \sim P\), or
+              query \(P(x)\) for any chosen \(x \in \Sigma\).
+            </div>
+          </div>
 
+          <div class="oracle-card" data-oracle="SUBCOND">
+            <div class="oracle-card-header">
+              <span class="oracle-tag">SUBCOND</span>
+              <span class="oracle-full-name">Subcube Conditional Oracle</span>
+            </div>
+            <p class="oracle-desc">
+              For high-dimensional distributions over \(\{0,1\}^d\), conditions on a
+              <em>subcube</em>: a partial assignment fixing some coordinates.
+              Captures distributions arising from structured samplers.
+              Known to be simulatable by COND; strictly stronger than DUAL.
+            </p>
+            <div class="oracle-formal">
+              \(\mathsf{SUBCOND}(P, S, v)\): draw \(x \sim P(\cdot \mid x_S = v)\)
+              for \(S \subseteq [d]\), \(v \in \{0,1\}^{|S|}\).
+            </div>
+          </div>
 
-        <div style="display: none;">
+          <div class="oracle-card" data-oracle="COND">
+            <div class="oracle-card-header">
+              <span class="oracle-tag">COND</span>
+              <span class="oracle-full-name">Conditional Oracle</span>
+            </div>
+            <p class="oracle-desc">
+              The strongest oracle that returns samples. Allows conditioning on
+              <em>any</em> subset of the support.
+              Known to simulate SAMP, DUAL, SUBCOND, and PAIRCOND.
+            </p>
+            <div class="oracle-formal">
+              \(\mathsf{COND}(P, S)\): draw \(x \sim P(\cdot \mid S)\)
+              for any non-empty \(S \subseteq \Sigma\).
+            </div>
+          </div>
+
+          <div class="oracle-card" data-oracle="PAIRCOND">
+            <div class="oracle-card-header">
+              <span class="oracle-tag">PAIRCOND</span>
+              <span class="oracle-full-name">Pair Conditional Oracle</span>
+            </div>
+            <p class="oracle-desc">
+              Returns a sample from the distribution restricted to a queried
+              <em>pair</em> of elements. Only known to be simulatable by COND
+              (and FULL). Its relationship to SAMP, DUAL, and SUBCOND is open.
+            </p>
+            <div class="oracle-formal">
+              \(\mathsf{PAIRCOND}(P,\{a,b\})\): draw \(x \sim P(\cdot \mid \{a,b\})\)
+              for any \(a,b \in \Sigma\).
+            </div>
+          </div>
+
+          <div class="oracle-card" data-oracle="FULL">
+            <div class="oracle-card-header">
+              <span class="oracle-tag">FULL</span>
+              <span class="oracle-full-name">Full Evaluation Oracle</span>
+            </div>
+            <p class="oracle-desc">
+              The strongest oracle. Returns the <em>exact probability</em> of any queried element.
+              Essentially provides read access to the full probability table.
+              Only appears as a row (not a column) in the current table.
+            </p>
+            <div class="oracle-formal">
+              \(\mathsf{FULL}(P, x)\): return \(P(x)\) exactly,
+              for any \(x \in \Sigma\).
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ④ How to read a cell -->
+      <div>
+        <div class="htr-section-title">Reading a Cell</div>
+        <div class="cell-guide">
+          <div class="cell-guide-box">
+            <h4>Upper Bound (UB)</h4>
+            <p>
+              An <strong>upper bound</strong> \(f(N,\varepsilon)\) means there <em>exists</em>
+              an algorithm that uses at most \(O(f(N,\varepsilon))\) queries and solves the problem
+              correctly with probability \(\geq 2/3\).
+              It is an achievability result — the algorithm has been explicitly constructed.
+            </p>
+          </div>
+          <div class="cell-guide-box">
+            <h4>Lower Bound (LB)</h4>
+            <p>
+              A <strong>lower bound</strong> \(g(N,\varepsilon)\) means that <em>every</em>
+              algorithm for this oracle combination must use at least \(\Omega(g(N,\varepsilon))\)
+              queries in the worst case.
+              It is an impossibility result proven for the specific pair of oracles in that cell.
+            </p>
+          </div>
+          <div class="cell-guide-box">
+            <h4>Notation</h4>
+            <p>
+              \(N = |\Sigma|\) is the support size.
+              \(\varepsilon\) is the farness parameter (\(= \varepsilon_2\) in the tolerant case,
+              or the single threshold in the non-tolerant case).
+              \(d\) is the dimension for high-dimensional distributions over \(\{0,1\}^d\).
+            </p>
+          </div>
+          <div class="cell-guide-box">
+            <h4>Open Problems (?)</h4>
+            <p>
+              A <strong>?</strong> in a cell means no non-trivial bound is known for that
+              oracle combination and distance setting. These represent open problems in
+              distribution testing — contributions are welcome!
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /htr-body -->
+  </details>
+
+  <!-- ── Results Table ─────────────────────────────────────────── -->
+  <div class="card">
+    <div class="card-header">
+      Query Complexity &mdash; <em style="font-weight:400;opacity:0.85">Row: oracle for \(P\)</em> &nbsp;|&nbsp; <em style="font-weight:400;opacity:0.85">Column: oracle for \(Q\)</em>
+    </div>
+    <div class="table-scroll">
+      <form name="commentForm">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th class="corner"></th>
+              <th>SAMP</th>
+              <th>DUAL</th>
+              <th>PAIRCOND</th>
+              <th>SUBCOND</th>
+              <th>COND</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- SAMP row -->
+            <tr>
+              <td class="row-label">SAMP</td>
+              <td class="formula-cell" data-cell="sampSamp" onclick="selectCell('sampSamp')">
+                <span id="sampSamp">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_sampSamp" name="combaton" value="sampSamp" checked>
+              </td>
+              <td class="formula-cell empty-cell" colspan="4" style="color:var(--text-muted); font-size:12px; font-style:italic; cursor:default;">
+                &mdash;
+              </td>
+            </tr>
+
+            <!-- DUAL row -->
+            <tr>
+              <td class="row-label">DUAL</td>
+              <td class="formula-cell" data-cell="dualSamp" onclick="selectCell('dualSamp')">
+                <span id="dualSamp">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_dualSamp" name="combaton" value="dualSamp">
+              </td>
+              <td class="formula-cell" data-cell="dualDual" onclick="selectCell('dualDual')">
+                <span id="dualDual">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_dualDual" name="combaton" value="dualDual">
+              </td>
+              <td class="formula-cell empty-cell" colspan="3" style="color:var(--text-muted); font-size:12px; font-style:italic; cursor:default;">
+                &mdash;
+              </td>
+            </tr>
+
+            <!-- PAIRCOND row -->
+            <tr>
+              <td class="row-label">PAIRCOND</td>
+              <td class="formula-cell" data-cell="pairSamp" onclick="selectCell('pairSamp')">
+                <span id="pairSamp">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_pairSamp" name="combaton" value="pairSamp">
+              </td>
+              <td class="formula-cell" data-cell="pairDual" onclick="selectCell('pairDual')">
+                <span id="pairDual">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_pairDual" name="combaton" value="pairDual">
+              </td>
+              <td class="formula-cell" data-cell="pairPair" onclick="selectCell('pairPair')">
+                <span id="pairPair">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_pairPair" name="combaton" value="pairPair">
+              </td>
+              <td class="formula-cell empty-cell" colspan="2" style="color:var(--text-muted); font-size:12px; font-style:italic; cursor:default;">
+                &mdash;
+              </td>
+            </tr>
+
+            <!-- SUBCOND row -->
+            <tr>
+              <td class="row-label">SUBCOND</td>
+              <td class="formula-cell" data-cell="subSamp" onclick="selectCell('subSamp')">
+                <span id="subSamp">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_subSamp" name="combaton" value="subSamp">
+              </td>
+              <td class="formula-cell" data-cell="subDual" onclick="selectCell('subDual')">
+                <span id="subDual">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_subDual" name="combaton" value="subDual">
+              </td>
+              <td class="formula-cell" data-cell="subPair" onclick="selectCell('subPair')">
+                <span id="subPair">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_subPair" name="combaton" value="subPair">
+              </td>
+              <td class="formula-cell" data-cell="subSub" onclick="selectCell('subSub')">
+                <span id="subSub">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_subSub" name="combaton" value="subSub">
+              </td>
+              <td class="formula-cell empty-cell" style="color:var(--text-muted); font-size:12px; font-style:italic; cursor:default;">
+                &mdash;
+              </td>
+            </tr>
+
+            <!-- COND row -->
+            <tr>
+              <td class="row-label">COND</td>
+              <td class="formula-cell" data-cell="condSamp" onclick="selectCell('condSamp')">
+                <span id="condSamp">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_condSamp" name="combaton" value="condSamp">
+              </td>
+              <td class="formula-cell" data-cell="condDual" onclick="selectCell('condDual')">
+                <span id="condDual">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_condDual" name="combaton" value="condDual">
+              </td>
+              <td class="formula-cell" data-cell="condPair" onclick="selectCell('condPair')">
+                <span id="condPair">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_condPair" name="combaton" value="condPair">
+              </td>
+              <td class="formula-cell" data-cell="condSub" onclick="selectCell('condSub')">
+                <span id="condSub">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_condSub" name="combaton" value="condSub">
+              </td>
+              <td class="formula-cell" data-cell="condCond" onclick="selectCell('condCond')">
+                <span id="condCond">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_condCond" name="combaton" value="condCond">
+              </td>
+            </tr>
+
+            <!-- FULL row -->
+            <tr>
+              <td class="row-label">FULL</td>
+              <td class="formula-cell" data-cell="fullSamp" onclick="selectCell('fullSamp')">
+                <span id="fullSamp">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_fullSamp" name="combaton" value="fullSamp">
+              </td>
+              <td class="formula-cell" data-cell="fullDual" onclick="selectCell('fullDual')">
+                <span id="fullDual">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_fullDual" name="combaton" value="fullDual">
+              </td>
+              <td class="formula-cell" data-cell="fullPair" onclick="selectCell('fullPair')">
+                <span id="fullPair">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_fullPair" name="combaton" value="fullPair">
+              </td>
+              <td class="formula-cell" data-cell="fullSub" onclick="selectCell('fullSub')">
+                <span id="fullSub">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_fullSub" name="combaton" value="fullSub">
+              </td>
+              <td class="formula-cell" data-cell="fullCond" onclick="selectCell('fullCond')">
+                <span id="fullCond">&nbsp;</span>
+                <input class="cell-radio" type="radio" id="radio_fullCond" name="combaton" value="fullCond">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Comment / Reference box ───────────────────────────────── -->
+  <div class="comment-box">
+    <div class="comment-label">Cell note &amp; reference</div>
+    <div id="resultcomment">Click any cell above to see its reference or derivation.</div>
+  </div>
+
+  <!-- ── Notes ─────────────────────────────────────────────────── -->
+  <div class="notes-card">
+    <h3>Notes</h3>
+    <ol>
+      <li>The Total Variation distance \(d_{\mathrm{TV}}\) between two distributions \(P\) and \(Q\) is:
+          \(d_{\mathrm{TV}}(P,Q) = \tfrac{1}{2}\sum_{x}|P(x)-Q(x)|\).</li>
+      <li>The support of a distribution is \(\Sigma\) with \(|\Sigma|=N\).
+          For joint distributions on \(d\) dimensions, the support is \(\Sigma^d\) and the support size is \(N^d\).</li>
+      <li>Query complexity counts the number of oracle calls needed to distinguish the null hypothesis
+          from the alternative hypothesis, up to the specified distances.</li>
+      <li>Cells marked <strong>?</strong> represent open problems.</li>
+    </ol>
+  </div>
+
+  <!-- ── References ────────────────────────────────────────────── -->
+  <div class="card references-card">
+    <div class="card-header">References</div>
+    <div class="card-body">
+
+      <script>var RefLabel = 0;</script>
+      <ol class="bib">
+
+        <li>
+          <script>var batu2013testing; CreateRefLink('batu2013testing');</script>
+          <span class="paper_title">Testing Closeness of Discrete Distributions</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/abs/1009.5397" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('batu2013testing');</script> ]</span>
+          <div class="bibtex" id="batu2013testing_bibtex">@article{batu2013testing,
+  title   = {Testing closeness of discrete distributions},
+  author  = {Batu, Tu{\u{g}}kan and Fortnow, Lance and Rubinfeld, Ronitt and
+             Smith, Warren D and White, Patrick},
+  journal = {Journal of the ACM (JACM)},
+  volume  = {60}, number = {1}, pages = {1--25}, year = {2013},
+  publisher = {ACM}
+}</div>
+          <div class="paper_authors">Tugkan Batu, Lance Fortnow, Ronitt Rubinfeld, Warren D. Smith, Patrick White</div>
+        </li>
+
+        <li>
+          <script>var valiant2017automatic; CreateRefLink('valiant2017automatic');</script>
+          <span class="paper_title">An Automatic Inequality Prover and Instance Optimal Identity Testing</span>
+          <span class="paper_link">[ <a href="http://theory.stanford.edu/~valiant/papers/instanceOpt.pdf" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('valiant2017automatic');</script> ]</span>
+          <div class="bibtex" id="valiant2017automatic_bibtex">@article{valiant2017automatic,
+  title   = {An Automatic Inequality Prover and Instance Optimal Identity Testing},
+  author  = {Gregory Valiant and Paul Valiant},
+  journal = {{SIAM} J. Comput.},
+  volume  = {46}, number = {1}, pages = {429--455}, year = {2017}
+}</div>
+          <div class="paper_authors">Gregory Valiant, Paul Valiant</div>
+        </li>
+
+        <li>
+          <script>var nar2020cond; CreateRefLink('nar2020cond');</script>
+          <span class="paper_title">On Distribution Testing in the Conditional Sampling Model</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/2007.09895.pdf" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('nar2020cond');</script> ]</span>
+          <div class="bibtex" id="nar2020cond_bibtex">@article{nar2020cond,
+  author  = {Shyam Narayanan},
+  title   = {Tolerant Distribution Testing in the Conditional Sampling Model},
+  journal = {CoRR}, volume = {abs/2007.09895}, year = {2020}
+}</div>
+          <div class="paper_authors">Shyam Narayanan</div>
+        </li>
+
+        <li>
+          <script>var bc18; CreateRefLink('bc18');</script>
+          <span class="paper_title">Property Testing of Joint Distributions using Conditional Samples</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/1702.01454v2.pdf" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('bc18');</script> ]</span>
+          <div class="bibtex" id="bc18_bibtex">@article{bhattacharyya2018property,
+  author  = {Rishiraj Bhattacharyya and Sourav Chakraborty},
+  title   = {Property Testing of Joint Distributions using Conditional Samples},
+  journal = {CoRR}, volume = {abs/1702.01454}, year = {2017}
+}</div>
+          <div class="paper_authors">Rishiraj Bhattacharyya, Sourav Chakraborty</div>
+        </li>
+
+        <li>
+          <script>var canonne2017testing; CreateRefLink('canonne2017testing');</script>
+          <span class="paper_title">Testing Bayesian Networks</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/1612.03156.pdf" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('canonne2017testing');</script> ]</span>
+          <div class="bibtex" id="canonne2017testing_bibtex">@inproceedings{canonne2017testing,
+  title   = {Testing Bayesian Networks},
+  author  = {Canonne, Cl{\'e}ment L and Diakonikolas, Ilias and Kane, Daniel M and Stewart, Alistair},
+  booktitle = {Conference on Learning Theory}, pages = {370--448}, year = {2017}, organization = {PMLR}
+}</div>
+          <div class="paper_authors">Clement L. Canonne, Ilias Diakonikolas, Daniel M. Kane, Alistair Stewart</div>
+        </li>
+
+        <li>
+          <script>var canonne2015testing; CreateRefLink('canonne2015testing');</script>
+          <span class="paper_title">Testing Probability Distributions using Conditional Samples</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/1211.2664/" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('canonne2015testing');</script> ]</span>
+          <div class="bibtex" id="canonne2015testing_bibtex">@article{canonne2015testing,
+  title   = {Testing probability distributions using conditional samples},
+  author  = {Canonne, Cl{\'e}ment L and Ron, Dana and Servedio, Rocco A},
+  volume  = {44}, number = {3}, pages = {540--616}, year = {2015}, publisher = {SIAM}
+}</div>
+          <div class="paper_authors">Clement L. Canonne, Dana Ron, Rocco A. Servedio</div>
+        </li>
+
+        <li>
+          <script>var chakraborty2013power; CreateRefLink('chakraborty2013power');</script>
+          <span class="paper_title">On the Power of Conditional Samples in Distribution Testing</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/1210.8338.pdf" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('chakraborty2013power');</script> ]</span>
+          <div class="bibtex" id="chakraborty2013power_bibtex">@inproceedings{chakraborty2013power,
+  title   = {On the power of conditional samples in distribution testing},
+  author  = {Chakraborty, Sourav and Fischer, Eldar and Goldhirsh, Yonatan and Matsliah, Arie},
+  booktitle = {Proceedings of the 4th ITCS}, pages = {561--580}, year = {2013}
+}</div>
+          <div class="paper_authors">Sourav Chakraborty, Eldar Fischer, Yonatan Goldhirsh, Arie Matsliah</div>
+        </li>
+
+        <li>
+          <script>var potescalable; CreateRefLink('potescalable');</script>
+          <span class="paper_title">On Scalable Testing of Samplers</span>
+          <span class="paper_link">[ <a href="https://openreview.net/pdf?id=qHs3qeaQjgl" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('potescalable');</script> ]</span>
+          <div class="bibtex" id="potescalable_bibtex">@inproceedings{potescalable,
+  title     = {On Scalable Testing of Samplers},
+  author    = {Pote, Yash and Meel, Kuldeep S},
+  booktitle = {Advances in Neural Information Processing Systems}
+}</div>
+          <div class="paper_authors">Yash Pote, Kuldeep S. Meel</div>
+        </li>
+
+        <li>
+          <script>var falahatgar2015faster; CreateRefLink('falahatgar2015faster');</script>
+          <span class="paper_title">Faster Algorithms for Testing under Conditional Sampling</span>
+          <span class="paper_link">[ <a href="http://proceedings.mlr.press/v40/Falahatgar15.pdf" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('falahatgar2015faster');</script> ]</span>
+          <div class="bibtex" id="falahatgar2015faster_bibtex">@inproceedings{falahatgar2015faster,
+  title   = {Faster algorithms for testing under conditional sampling},
+  author  = {Falahatgar, Moein and Jafarpour, Ashkan and Orlitsky, Alon and
+             Pichapati, Venkatadheeraj and Suresh, Ananda Theertha},
+  booktitle = {Conference on Learning Theory}, pages = {607--636}, year = {2015}, organization = {PMLR}
+}</div>
+          <div class="paper_authors">Moein Falahatgar, Ashkan Jafarpour, Alon Orlitsky, Venkatadheeraj Pichapati, Ananda Theertha Suresh</div>
+        </li>
+
+        <li>
+          <script>var bhattacharyya2024testing; CreateRefLink('bhattacharyya2024testing');</script>
+          <span class="paper_title">Testing Self-Reducible Samplers</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/2312.10999" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('bhattacharyya2024testing');</script> ]</span>
+          <div class="bibtex" id="bhattacharyya2024testing_bibtex">@inproceedings{bhattacharyya2024testing,
+  title   = {Testing Self-Reducible Samplers},
+  author  = {Bhattacharyya, Rishiraj and Chakraborty, Sourav and Pote, Yash and
+             Sarkar, Uddalok and Sen, Sayantan},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume  = {38}, number = {8}, pages = {7952--7960}, year = {2024}
+}</div>
+          <div class="paper_authors">Rishiraj Bhattacharyya, Sourav Chakraborty, Yash Pote, Uddalok Sarkar, Sayantan Sen</div>
+        </li>
+
+        <li>
+          <script>var kumar2023tolerant; CreateRefLink('kumar2023tolerant');</script>
+          <span class="paper_title">Tolerant Testing of High-Dimensional Samplers with Subcube Conditioning</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/2308.04264" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('kumar2023tolerant');</script> ]</span>
+          <div class="bibtex" id="kumar2023tolerant_bibtex">@article{kumar2023tolerant,
+  title   = {Tolerant Testing of High-Dimensional Samplers with Subcube Conditioning},
+  author  = {Kumar, Gunjan and Meel, Kuldeep S and Pote, Yash},
+  journal = {arXiv preprint arXiv:2308.04264}, year = {2023}
+}</div>
+          <div class="paper_authors">Gunjan Kumar, Kuldeep S. Meel, Yash Pote</div>
+        </li>
+
+        <li>
+          <script>var valiant2008testing; CreateRefLink('valiant2008testing');</script>
+          <span class="paper_title">Testing Symmetric Properties of Distributions</span>
+          <span class="paper_link">[ <a href="https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=379cf3319a55653fc9baf7489e0a4766c5c70a5f" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('valiant2008testing');</script> ]</span>
+          <div class="bibtex" id="valiant2008testing_bibtex">@inproceedings{valiant2008testing,
+  title   = {Testing symmetric properties of distributions},
+  author  = {Valiant, Paul},
+  booktitle = {Proceedings of the 40th Annual ACM STOC}, pages = {383--392}, year = {2008}
+}</div>
+          <div class="paper_authors">Paul Valiant</div>
+        </li>
+
+        <li>
+          <script>var canonne2014testing; CreateRefLink('canonne2014testing');</script>
+          <span class="paper_title">Testing Probability Distributions Underlying Aggregated Data</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/abs/1402.3835" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('canonne2014testing');</script> ]</span>
+          <div class="bibtex" id="canonne2014testing_bibtex">@inproceedings{canonne2014testing,
+  title   = {Testing probability distributions underlying aggregated data},
+  author  = {Canonne, Cl{\'e}ment and Rubinfeld, Ronitt},
+  booktitle = {ICALP}, pages = {283--295}, year = {2014}, organization = {Springer}
+}</div>
+          <div class="paper_authors">Clement Canonne, Ronitt Rubinfeld</div>
+        </li>
+
+        <li>
+          <script>var jiao2018minimax; CreateRefLink('jiao2018minimax');</script>
+          <span class="paper_title">Minimax Estimation of the \(L_1\) Distance</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/1705.00807" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('jiao2018minimax');</script> ]</span>
+          <div class="bibtex" id="jiao2018minimax_bibtex">@article{jiao2018minimax,
+  title   = {Minimax estimation of the $L_1$ distance},
+  author  = {Jiao, Jiantao and Han, Yanjun and Weissman, Tsachy},
+  journal = {IEEE Transactions on Information Theory},
+  volume  = {64}, number = {10}, pages = {6672--6706}, year = {2018}, publisher = {IEEE}
+}</div>
+          <div class="paper_authors">Jiantao Jiao, Yanjun Han, Tsachy Weissman</div>
+        </li>
+
+        <li>
+          <script>var chakraborty2024tight; CreateRefLink('chakraborty2024tight');</script>
+          <span class="paper_title">Tight Lower Bound on Equivalence Testing in Conditional Sampling Model</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/2308.11558" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('chakraborty2024tight');</script> ]</span>
+          <div class="bibtex" id="chakraborty2024tight_bibtex">@inproceedings{chakraborty2024tight,
+  title   = {Tight lower bound on equivalence testing in conditional sampling model},
+  author  = {Chakraborty, Diptarka and Chakraborty, Sourav and Kumar, Gunjan},
+  booktitle = {SODA 2024}, pages = {4371--4394}, year = {2024}, organization = {SIAM}
+}</div>
+          <div class="paper_authors">Diptarka Chakraborty, Sourav Chakraborty, Gunjan Kumar</div>
+        </li>
+
+        <li>
+          <script>var adar2024improved; CreateRefLink('adar2024improved');</script>
+          <span class="paper_title">Improved Bounds for High-Dimensional Equivalence and Product Testing using Subcube Queries</span>
+          <span class="paper_link">[ <a href="https://eldar.cswp.cs.technion.ac.il/wp-content/uploads/sites/55/2024/07/subcube-1.pdf" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('adar2024improved');</script> ]</span>
+          <div class="bibtex" id="adar2024improved_bibtex">@article{adar2024improved,
+  title   = {Improved Bounds for High-Dimensional Equivalence and Product Testing using Subcube Queries},
+  author  = {Adar, Tomer and Fischer, Eldar and Levi, Amit},
+  journal = {arXiv preprint arXiv:2408.02347}, year = {2024}
+}</div>
+          <div class="paper_authors">Tomer Adar, Eldar Fischer, Amit Levi</div>
+        </li>
+
+      </ol>
+    </div>
+  </div>
+
+</main>
+
+</body>
+</html>

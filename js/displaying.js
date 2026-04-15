@@ -1,332 +1,132 @@
-var  // Output strings
+// ── Global formula variables (set by queryComplexity.js) ─────────────────────────
+var SAMPSAMP='', DUALSAMP='', DUALDUAL='',
+    PAIRSAMP='', PAIRDUAL='', PAIRPAIR='',
+    SUBSAMP='',  SUBDUAL='',  SUBPAIR='',  SUBSUB='',
+    CONDSAMP='', CONDDUAL='', CONDPAIR='', CONDSUB='', CONDCOND='',
+    FULLSAMP='', FULLDUAL='', FULLPAIR='', FULLSUB='', FULLCOND='';
 
-SAMPSAMP = '';
-DUALSAMP = '';
-DUALDUAL = '';
-PAIRSAMP = '';
-PAIRDUAL = '';
-PAIRPAIR = '';
-SUBSAMP = '';
-SUBDUAL = '';
-SUBPAIR = '';
-SUBSUB = '';
-CONDSAMP = '';
-CONDDUAL = '';
-CONDPAIR = '';
-CONDSUB = '';
-CONDCOND = '';
-FULLSAMP = '';
-FULLDUAL = '';
-FULLPAIR = '';
-FULLSUB = '';
-FULLCOND = '';
-FULLFULL = '';
+// ── Rendering ─────────────────────────────────────────────────────────────────────
 
-var comvar = '';
-
-
-// ===============================================================================================
-
-function ShowID(ID,iHTML)
-{
- document.getElementById(ID).innerHTML=katex.renderToString(iHTML);
+function ShowID(id, latex) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var td = el.closest('td');
+    if (!latex || latex.trim() === '') {
+        el.innerHTML = '?';
+        if (td) td.classList.add('empty-cell');
+    } else {
+        try { el.innerHTML = katex.renderToString(latex, { throwOnError: false }); }
+        catch(e) { el.innerHTML = latex; }
+        if (td) td.classList.remove('empty-cell');
+    }
 }
 
-
-function showComment(comment){
-   document.getElementById('resultcomment').innerHTML= comment;
-}
-function displayComments(){
-   with(document.commentForm){
-      comvar = checkedvalue(combaton);
-   }
-   if(comvar == 'sampSamp'){
-      showComment(complComment["SAMPSAMP"]);
-   }
-   else if (comvar == 'dualSamp'){
-      showComment(complComment["DUALSAMP"]);
-   }
-   else if (comvar == 'dualDual'){
-      showComment(complComment["DUALDUAL"]);
-   }
-   else if (comvar == 'pairSamp'){
-      showComment(complComment["PAIRSAMP"]);
-   }
-   else if (comvar == 'pairDual'){
-      showComment(complComment["PAIRDUAL"]);
-   }
-   else if (comvar == 'pairPair'){
-      showComment(complComment["PAIRPAIR"]);
-   }
-   else if (comvar == 'subSamp'){
-      showComment(complComment["SUBSAMP"]);
-   }
-   else if (comvar == 'subDual'){
-      showComment(complComment["SUBDUAL"]);
-   }
-   else if (comvar == 'subPair'){
-      showComment(complComment["SUBPAIR"]);
-   }
-   else if (comvar == 'subSub'){
-      showComment(complComment["SUBSUB"]);
-   }
-   else if (comvar == 'condSamp'){
-      showComment(complComment["CONDSAMP"]);
-   }
-   else if (comvar == 'condDual'){
-      showComment(complComment["CONDDUAL"]);
-   }
-   else if (comvar == 'condPair'){
-      showComment(complComment["CONDPAIR"]);
-   }
-   else if (comvar == 'condSub'){
-      showComment(complComment["CONDSUB"]);
-   }
-   else if (comvar == 'condCond'){
-      showComment(complComment["CONDCOND"]);
-   }
-   else if (comvar == 'fullSamp'){
-      showComment(complComment["FULLSAMP"]);
-   }
-   else if (comvar == 'fullDual'){
-      showComment(complComment["FULLDUAL"]);
-   }
-   else if (comvar == 'fullPair'){
-      showComment(complComment["FULLPAIR"]);
-   }
-   else if (comvar == 'fullSub'){
-      showComment(complComment["FULLSUB"]);
-   }
-   else if (comvar == 'fullCond'){
-      showComment(complComment["FULLCOND"]);
-   }
+function showComment(html) {
+    document.getElementById('resultcomment').innerHTML = html || '&nbsp;';
 }
 
+// ── Cell selection ────────────────────────────────────────────────────────────────
 
-function DisplayResults()
-{
+// Called when user clicks a formula cell.
+function selectCell(cellId) {
+    // Check the hidden radio
+    var radio = document.getElementById('radio_' + cellId);
+    if (radio) radio.checked = true;
 
- ShowID('sampSamp',SAMPSAMP);
-//  ShowID('evalSamp',EVALSAMP);
-//  ShowID('evalEval',EVALEVAL);
-//  ShowID('prSamp',PRSAMP);
-//  ShowID('prEVAL',PREVAL);
-//  ShowID('prPr',PRPR);
- ShowID('dualSamp',DUALSAMP);
-//  ShowID('dualEval',DUALEVAL);
-//  ShowID('dualPr',DUALPR);
- ShowID('dualDual',DUALDUAL);
- ShowID('pairSamp',PAIRSAMP);
-//  ShowID('pairEval',PAIREVAL);
-//  ShowID('pairPr',PAIRPR);
- ShowID('pairDual',PAIRDUAL);
- ShowID('pairPair',PAIRPAIR);
- ShowID('subSamp',SUBSAMP);
-//  ShowID('subEval',SUBEVAL);
-//  ShowID('subrPr',SUBPR);
- ShowID('subDual',SUBDUAL);
- ShowID('subPair',SUBPAIR);
- ShowID('subSub',SUBSUB);
- ShowID('condSamp',CONDSAMP);
-//  ShowID('condEval',CONDEVAL);
-//  ShowID('condPr',CONDPR);
- ShowID('condDual',CONDDUAL);
- ShowID('condPair',CONDPAIR);
- ShowID('condSub',CONDSUB);
- ShowID('condCond',CONDCOND);
- ShowID('fullSamp',FULLSAMP);
-//  ShowID('fullEval',FULLEVAL);
-//  ShowID('fullPr',FULLPR);
- ShowID('fullDual',FULLDUAL);
- ShowID('fullPair',FULLPAIR);
- ShowID('fullSub',FULLSUB);
- ShowID('fullCond',FULLCOND);
-//  ShowID('fullFull',FULLFULL, 'todo');
+    // Update visual highlight
+    document.querySelectorAll('.formula-cell').forEach(function(c) {
+        c.classList.remove('selected-cell');
+    });
+    var td = document.querySelector('[data-cell="' + cellId + '"]');
+    if (td) td.classList.add('selected-cell');
 
-
+    displayComments();
 }
 
+// ── Comment display ───────────────────────────────────────────────────────────────
 
-// ===============================================================================================
+// Cell-id → complComment key mapping (camelCase → UPPERCASE)
+var CELL_KEY_MAP = {
+    sampSamp:'SAMPSAMP', dualSamp:'DUALSAMP', dualDual:'DUALDUAL',
+    pairSamp:'PAIRSAMP', pairDual:'PAIRDUAL', pairPair:'PAIRPAIR',
+    subSamp:'SUBSAMP',   subDual:'SUBDUAL',   subPair:'SUBPAIR',   subSub:'SUBSUB',
+    condSamp:'CONDSAMP', condDual:'CONDDUAL', condPair:'CONDPAIR', condSub:'CONDSUB', condCond:'CONDCOND',
+    fullSamp:'FULLSAMP', fullDual:'FULLDUAL', fullPair:'FULLPAIR', fullSub:'FULLSUB', fullCond:'FULLCOND',
+};
 
-function ShowComplexity(inp_1, inp_2, inp_3)
-{
- QueryC(inp_1, inp_2, inp_3);
- DisplayResults();
+function displayComments() {
+    var selected = document.querySelector('input[name="combaton"]:checked');
+    if (!selected) return;
+    var key = CELL_KEY_MAP[selected.value];
+    if (key && complComment[key] !== undefined) {
+        showComment(complComment[key]);
+    }
 }
 
+// ── Display all 20 table cells ────────────────────────────────────────────────────
 
-function ShowAll()
-{
- inp = ReadInput();
- ShowComplexity(inp[0], inp[1], inp[2]);
- displayComments();
+function DisplayResults() {
+    ShowID('sampSamp', SAMPSAMP);
+    ShowID('dualSamp', DUALSAMP);  ShowID('dualDual', DUALDUAL);
+    ShowID('pairSamp', PAIRSAMP);  ShowID('pairDual', PAIRDUAL);  ShowID('pairPair', PAIRPAIR);
+    ShowID('subSamp',  SUBSAMP);   ShowID('subDual',  SUBDUAL);   ShowID('subPair',  SUBPAIR);  ShowID('subSub',  SUBSUB);
+    ShowID('condSamp', CONDSAMP);  ShowID('condDual', CONDDUAL);  ShowID('condPair', CONDPAIR); ShowID('condSub', CONDSUB); ShowID('condCond', CONDCOND);
+    ShowID('fullSamp', FULLSAMP);  ShowID('fullDual', FULLDUAL);  ShowID('fullPair', FULLPAIR); ShowID('fullSub', FULLSUB); ShowID('fullCond', FULLCOND);
 }
 
+// ── Master show function ──────────────────────────────────────────────────────────
 
-function ShowBeta()
-{
-var WW=window.open('','WWname','width=200,height=200,resizable=yes');
-WW.window.document.write(
-'<html><head><title>What is beta?</title></head><body>'+
-'<div style="font-size:11pt;font-style:italic;text-align:right;">'+
-'The term "beta" is<br>an abbreviation for the phrase<br>"beta than nothing",'+
-'<br>which is exactly what<br>beta software is.<br><br>'+
-'Guy Kawasaki<br><a target="_blank" href="http://scribd.com/doc/68449509/The-Macintosh-Way-Guy-Kawasaki">"The Macintosh Way"</a></div></body></html>');
+function ShowComplexity(inp_1, inp_2, inp_3) {
+    QueryC(inp_1, inp_2, inp_3);
+    DisplayResults();
 }
 
-// ==================================================================================
-
- var NamingScheme = '_Anchor';
-     EmptyString='';
-     OMOString = 'Go to the reference [';
-     OMOEnd=']...';
-
-function GoToRef(VN)
-{
-
-   var currentURL = window.location.href;
-       wherehash  = currentURL.lastIndexOf('#');
-       newURL     = ( (wherehash>0)? currentURL.substring(0,wherehash) : currentURL ) +'#'+VN;
-   window.location.href=newURL;
-
+function ShowAll() {
+    var inp = ReadInput();
+    ShowComplexity(inp[0], inp[1], inp[2]);
+    displayComments();
 }
 
-function CreateRefLink(VarName) // Creates a variable with this name and puts into it the tag <a href="#..."></a>
-{                               // Additionally, writes into HTML file the anchor: <a name="..."></a>
-                                // This "..." will be VarName_Anchor
-                                // Side effect: increments RefLabel !
+// ── Reference management ──────────────────────────────────────────────────────────
 
- NamingScheme = VarName+'_Anchor';
+var NamingScheme = '_Anchor';
+var EmptyString  = '';
+var OMOString    = 'Go to reference [';
+var OMOEnd       = ']';
 
-
- RefLabel++;
-
- eval(VarName+'= \'<a target="_self" style="color:blue" href="javascript:void(0);" '+
- 'onMouseOver="window.status=OMOString+'+RefLabel+'+OMOEnd;return true;" '+
- 'onMouseOut="window.status=EmptyString;" '+
- 'onClick=GoToRef(\"'+NamingScheme+'\");>'+RefLabel+'</a>\';');
-
- document.writeln('<a name="'+NamingScheme+'"></a>');
-
+function GoToRef(VN) {
+    var url = window.location.href;
+    var hash = url.lastIndexOf('#');
+    window.location.href = (hash > 0 ? url.substring(0, hash) : url) + '#' + VN;
 }
 
-// -----------------------------------------------
-
-function SwapValues(CurrentValue,Value1,Value2)
-{
-  return (  (CurrentValue==Value1)? Value2 : Value1 );
+function CreateRefLink(VarName) {
+    NamingScheme = VarName + '_Anchor';
+    RefLabel++;
+    eval(VarName + '=\'<a target="_self" style="color:var(--primary-light)" href="javascript:void(0);" ' +
+        'onMouseOver="window.status=OMOString+' + RefLabel + '+OMOEnd;return true;" ' +
+        'onMouseOut="window.status=EmptyString;" ' +
+        'onClick=GoToRef(\\"' + NamingScheme + '\\");>' + RefLabel + '</a>\';');
+    document.writeln('<a name="' + NamingScheme + '"></a>');
 }
 
-/* -----------------------------------------------
-   This function searches for all tags <TagName class="ClassName"></TagName>
-   and makes them all visible or invisible simultaneously.
-   We could simply use document.getElementsByClassName("ClassName"), but
-   this method is not realized in Internet Explorer, alas!
-   DisplayStyle = 'inline' / 'block' / ...
-*/
+function SwapValues(cur, v1, v2) { return (cur === v1) ? v2 : v1; }
 
-function ToggleElementsByClassName(TagName,ClassName,DisplayStyle)
-{ var spans=document.getElementsByTagName(TagName);
-
-  for(var i=0;i<spans.length;i++)
-	if(spans[i].className.indexOf(ClassName)>=0)
-	{  var before = spans[i].style.display || 'none';
-		spans[i].style.display= SwapValues(before,'none',DisplayStyle);
-	}
+function FlipAbstract(refID, anchorObj, divSuffix, text1, text2, flipText) {
+    var el = document.getElementById(refID + '_' + divSuffix);
+    var before = el.style.display || 'none';
+    el.style.display = SwapValues(before, 'none', 'block');
+    if (flipText) anchorObj.innerHTML = SwapValues(anchorObj.innerHTML, text1, text2);
 }
-
-var ShowAbstr = 'Abstract';
-var HideAbstr = 'Hide Abstract';
 
 var ShowBib = 'BibTeX';
 var HideBib = 'Hide BibTeX';
 
-/* -------------------------------------------------
-   This function shows/hides the <DIV> block with abstract
-   and changes the link text: "Show Abstract" / "Hide Abstract"
-*/ 
-function FlipAbstract(refID,anchorObj,DivSuffix,Text1,Text2,FlipAnchorText)
-{
- var before=document.getElementById(refID+'_'+DivSuffix).style.display || 'none';
-
-     // Initially, it is ''; after two flips it is 'none'.
-     // So we reduced its value to 'none' in both cases.
-
- document.getElementById(refID+'_'+DivSuffix).style.display=
- SwapValues(before,'none','block');
-
-   // Decided to not flip the text, since "Show All Abstracts" button
-   // will not flip all these texts (I'm lazy to program it)
-
-if(FlipAnchorText) anchorObj.innerHTML = SwapValues(anchorObj.innerHTML,Text1,Text2);
-
+function CreateBibTeXLink(refID) {
+    document.writeln('<a target="_self" href="javascript:void(0);" ' +
+        'onclick="FlipAbstract(\'' + refID + '\',this,\'bibtex\',ShowBib,HideBib,true);">' + ShowBib + '</a>');
 }
 
-// -------------------------------------------------
-
-function CreateAbstractLink(refID)
-{
- document.writeln('<a target="_self" href="javascript:void(0);" '+
- 'onclick="FlipAbstract(\''+refID+'\',this,\'abstract\',ShowAbstr,HideAbstr,1);">'+ShowAbstr+'</a>');
-}
-
-function CreateBibTeXLink(refID)
-{
- document.writeln('<a target="_self" href="javascript:void(0);" '+
- 'onclick="FlipAbstract(\''+refID+'\',this,\'bibtex\',ShowBib,HideBib,true);">'+ShowBib+'</a>');
-}
-
-function CreateAbstractBibTeXLinks(refID)
-{
-//  CreateAbstractLink(refID);
-//  document.writeln(' | ');
- CreateBibTeXLink(refID);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-function FinishContent()
-{
- var LM=new Date(document.lastModified);
-
-       yy = LM.getYear();
-       mm = LM.getMonth(); // JAN=0; FEB=1; ...
-       dd = LM.getDate();
-
-       hour  = LM.getHours();
-       mins = LM.getMinutes();
-       secs = LM.getSeconds();
-
-       DD = ((dd<10)? "0" : "")+dd;
-       MM = ((mm<9)? "0" : "")+ (mm+1);
-       YYYY = (  (yy<2000)? (1900+yy) : (yy)  );
-       // Under some browsers yy=2005, not usual 105 !! 
-       Hour = ((hour<10)? "0" : "") + hour;
-       Mins = ((mins<10)? "0" : "") + mins;
-       Secs = ((secs<10)? "0" : "") + secs;
-
-       DateString = DD + "/" + MM + "/" + YYYY;
-       TimeString= Hour + ":" + Mins; // + ":" + Secs;
-
- document.writeln('<div>Last update: '+
- DateString + "&nbsp;" + TimeString +'</div>');
-
-}
-
-
-function NoSpamMail(s)
-{
-var MailString='Current Maintainers: '+'uddaloksarkar'+sobaka+'gmail.com?subject=Distribution%20Testing%20Navigator';
- location.href=MailString;
+function CreateAbstractBibTeXLinks(refID) {
+    CreateBibTeXLink(refID);
 }

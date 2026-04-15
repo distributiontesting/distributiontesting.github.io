@@ -1,116 +1,617 @@
-body, table {font-family: Verdana, Arial; font-size: 12pt; }
-body { margin:3pt; }
-h2 { font-size:14pt; }
-h3 { font-size:13pt; margin-top:2pt; margin-bottom:5pt; }
-h3.subtitle { color:darkblue; }
+/* ============================================================
+   DISTRIBUTION TESTING NAVIGATOR — Stylesheet
+   Modern academic research design
+   ============================================================ */
 
-a { color:#0000EE;}
-
-em {
-	font-size:16pt;
-	font-style: italic;
-	font-weight:normal;
-	font-family:"Monotype Corsiva","Comic Sans MS", "Brush Script MT", "Zap Chance", Cursive, Verdana, Arial;
+:root {
+    --primary:        #1e3a5f;
+    --primary-light:  #2563eb;
+    --accent:         #3b82f6;
+    --accent-soft:    #dbeafe;
+    --bg:             #f1f5f9;
+    --card-bg:        #ffffff;
+    --border:         #e2e8f0;
+    --text:           #1e293b;
+    --text-light:     #64748b;
+    --text-muted:     #94a3b8;
+    --empty-bg:       #f8fafc;
+    --row-hover:      #eff6ff;
+    --selected-bg:    #bfdbfe;
+    --header-bg:      #1e3a5f;
+    --th-bg:          #e0eaf8;
+    --th-text:        #1e3a5f;
+    --journal-color:  #1d4ed8;
+    --conf-color:     #6d28d9;
+    --report-color:   #047857;
+    --shadow-sm:      0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md:      0 4px 12px rgba(0,0,0,0.1);
+    --radius:         8px;
+    --radius-lg:      12px;
 }
 
-em.med {font-size:15pt;}
-em.small {font-size:14pt;}
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 
-ul { margin-bottom:2pt; margin-top:2pt; }
-
-ol.bib li { margin-bottom:11pt; }
-ul.bb  li { margin-bottom:5pt; margin-top:5pt; list-style-type: disc; }
-
-.little { font-size:10pt; }
-
-a.bib { color:blue; }
-
-a:hover { position: relative; left: 1px; top: 1px; }
-
-acronym { border-bottom: 1px dashed blue; color: navy; }
-
-.nobr { white-space:nowrap; }
-
-span.bl { color:blue; }
-
-tr.hl:hover { background:#eeeeee; }
-
-hr.dashes {
-	border-top: 1px dashed #555555;
-	border-bottom: 0;
-	margin-top: 1px;
-	height:0;
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    margin: 0;
+    padding: 0;
 }
 
-.paper_title { font-weight:bold; }
-.thesis { font-style: italic; color:darkblue; }
-.paper_link { white-space: nowrap; }
-.paper_link a { font-variant: small-caps; }
-.paper_location { }
+a { color: var(--primary-light); text-decoration: none; }
+a:hover { text-decoration: underline; opacity: 0.85; }
 
-.proc_editors { display:none; }
-.book_editors { }
+h2 { font-size: 18px; color: var(--primary); margin: 0 0 14px; }
+h3 { font-size: 13px; font-weight: 600; text-transform: uppercase;
+     letter-spacing: 0.5px; color: var(--text-light); margin: 0 0 10px; }
 
-.book_title { font-weight:bold; font-style:italic; }
-.book_title a { color:navy; text-decoration:none; }
-.book_authors { }
-.book_press {}
+hr { border: none; border-top: 1px solid var(--border); margin: 0; }
 
-.paper_authors a,
-.book_authors a,
-.proc_editors a,
-.book_editors a,
-.paper_location a { color:black; }
-
-.conference, .journal { font-style:italic; }
-.short {  }
-.long { display:none }
-
-.journal, .journal a { color: #30C; }
-
-.conference, .conference a { color: #903; }
-
-.report { color: #060; }
-
-.abstract {
-	border:1px dashed grey;
-   border-radius: 9px;
-	padding: 7px;
-	margin: 5px;
-	width: 95%;
-	color: #111155;
-	font-size:11pt;
-	text-align:justify;
-	display:none;
+/* ── Site Header ──────────────────────────────────────────── */
+.site-header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #1e4d8c 60%, #2563eb 100%);
+    color: #fff;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
 }
 
-.abstract p {margin: 0pt; margin-top: 5pt; }
+.site-header img.logo {
+    width: 72px;
+    height: auto;
+    border-radius: 6px;
+    opacity: 0.93;
+    flex-shrink: 0;
+}
+
+.header-text h1 {
+    margin: 0 0 3px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+}
+
+.header-text p {
+    margin: 0;
+    font-size: 12.5px;
+    opacity: 0.78;
+    line-height: 1.5;
+}
+
+.header-text a { color: #93c5fd; }
+.header-text a:hover { color: #fff; text-decoration: underline; }
+
+/* ── Maintainers bar ─────────────────────────────────────── */
+.maintainers-bar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 7px 32px;
+    font-size: 12.5px;
+    color: var(--text-light);
+    text-align: right;
+}
+
+.maintainers-bar a { color: var(--primary-light); font-weight: 500; }
+
+/* ── Main content wrapper ────────────────────────────────── */
+.main-content {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 22px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ── Card base ───────────────────────────────────────────── */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.card-header {
+    background: var(--header-bg);
+    color: #fff;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-body { padding: 18px 20px; }
+
+/* ── Controls card ───────────────────────────────────────── */
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.control-group h3 {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 7px;
+    margin-bottom: 10px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.12s;
+    margin-bottom: 2px;
+}
+
+.radio-option:hover { background: var(--row-hover); }
+
+.radio-option input[type="radio"] {
+    accent-color: var(--primary-light);
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* ── Results table ───────────────────────────────────────── */
+.table-scroll { overflow-x: auto; }
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.results-table th,
+.results-table td {
+    border: 1px solid var(--border);
+    padding: 9px 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.results-table th {
+    background: var(--th-bg);
+    color: var(--th-text);
+    font-weight: 700;
+    font-size: 11.5px;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+.results-table th.corner { background: var(--header-bg); }
+
+.results-table td.row-label {
+    background: var(--th-bg);
+    color: var(--th-text);
+    font-weight: 700;
+    font-size: 11.5px;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+.results-table tbody tr:hover > td:not(.row-label) {
+    background: var(--row-hover);
+}
+
+/* Clickable formula cells */
+.formula-cell {
+    min-width: 150px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.12s;
+}
+
+.formula-cell:hover { background: #e8f0fe !important; }
+
+.formula-cell.empty-cell {
+    background: var(--empty-bg);
+    color: var(--text-muted);
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.formula-cell.selected-cell {
+    background: var(--selected-bg) !important;
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+/* Hide radio buttons — cells are clicked directly */
+.cell-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+/* ── Comment box ─────────────────────────────────────────── */
+.comment-box {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 14px 18px;
+    min-height: 56px;
+    box-shadow: var(--shadow-sm);
+}
+
+.comment-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+#resultcomment {
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.55;
+}
+
+/* ── Notes card ──────────────────────────────────────────── */
+.notes-card {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-lg);
+    padding: 14px 18px;
+    font-size: 13px;
+}
+
+.notes-card h3 { color: #92400e; border-bottom-color: #fde68a; }
+.notes-card ol { margin: 0; padding-left: 20px; color: #78350f; }
+.notes-card ol li { margin-bottom: 7px; line-height: 1.5; }
+
+/* ── References ──────────────────────────────────────────── */
+.references-card .card-body { padding: 20px 24px; }
+
+ol.bib { padding-left: 26px; margin: 0; }
+ol.bib li { margin-bottom: 13px; font-size: 14px; line-height: 1.5; }
+
+.paper_title { font-weight: 600; color: var(--text); }
+
+.paper_link { white-space: nowrap; font-size: 12px; margin-left: 5px; }
+.paper_link a {
+    font-variant: small-caps;
+    background: #eff6ff;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: var(--primary-light);
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.paper_link a:hover { background: var(--accent-soft); text-decoration: none; }
+
+.paper_authors { color: var(--text-light); font-size: 12px; margin-top: 3px; }
+.paper_authors a { color: var(--text-light); }
 
 .bibtex {
-   border:1px dashed grey;
-   border-radius: 9px;
-   padding: 7px;
-   margin: 5px;
-   color: #111155;
-   font-size:11pt;
-   font-family:monospace;
-   white-space:pre;
-   text-align:left;
-   width: 850px;
-   display:none;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 8px 0 4px;
+    color: #475569;
+    font-size: 12px;
+    font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    white-space: pre;
+    text-align: left;
+    background: #f8fafc;
+    display: none;
+    overflow-x: auto;
+    max-width: 100%;
 }
 
-.bibtex a {color:black;}
+.abstract {
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 8px 0 4px;
+    font-size: 13px;
+    color: #334155;
+    text-align: justify;
+    background: #f8fafc;
+    display: none;
+}
 
-.comments {
-   border:3px dashed rgb(121, 86, 86);
-   border-radius: 15px;
-   padding: 7px;
-   margin: auto;
-   color: #111155;
-   font-size:11pt;
-   font-family:monospace;
-   white-space:pre;
-   text-align:center;
-   width: 850px;
+.journal,   .journal a   { color: var(--journal-color); font-style: italic; }
+.conference,.conference a { color: var(--conf-color);   font-style: italic; }
+.report                   { color: var(--report-color); }
+
+/* ── How To Read ─────────────────────────────────────────── */
+
+.htr-details {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.htr-summary {
+    background: var(--header-bg);
+    color: #fff;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.htr-summary::-webkit-details-marker { display: none; }
+
+.htr-summary::after {
+    content: '▾ Show';
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.8;
+    letter-spacing: 0.3px;
+}
+
+.htr-details[open] .htr-summary::after { content: '▴ Hide'; }
+
+.htr-body { padding: 22px 24px; display: flex; flex-direction: column; gap: 24px; }
+
+/* Setup diagram */
+.setup-section { display: flex; flex-direction: column; gap: 12px; }
+.setup-section > p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--text); }
+
+.setup-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    padding: 18px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    gap: 8px;
+}
+
+.dist-box {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 160px;
+    box-shadow: var(--shadow-sm);
+}
+
+.dist-box .dist-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.dist-box .oracle-badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-bottom: 5px;
+}
+
+.dist-box .dist-role {
+    font-size: 11.5px;
+    color: var(--text-light);
+    line-height: 1.3;
+}
+
+.arrow-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 0 12px;
+}
+
+.arrow-block .arrow-line {
+    font-size: 28px;
+    color: var(--text-muted);
+    line-height: 1;
+}
+
+.arrow-block .arrow-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary);
+    background: #fff8e1;
+    border: 1px solid #fde68a;
+    border-radius: 6px;
+    padding: 3px 10px;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* Oracle power hierarchy — Hasse diagram */
+.hierarchy-section { display: flex; flex-direction: column; gap: 10px; }
+
+.hasse-wrap {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.hasse-svg {
+    width: 100%;
+    max-width: 540px;
+    height: auto;
+    display: block;
+}
+
+.hierarchy-note {
+    font-size: 13px;
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.55;
+}
+
+/* Oracle definition cards */
+.oracle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.oracle-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 15px;
+    background: #fdfdfe;
+    transition: box-shadow 0.15s;
+}
+
+.oracle-card:hover { box-shadow: var(--shadow-md); }
+
+.oracle-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.oracle-tag {
+    background: var(--primary);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Color-code each oracle */
+.oracle-card[data-oracle="SAMP"]     .oracle-tag { background: #64748b; }
+.oracle-card[data-oracle="DUAL"]     .oracle-tag { background: #0284c7; }
+.oracle-card[data-oracle="PAIRCOND"] .oracle-tag { background: #0891b2; }
+.oracle-card[data-oracle="SUBCOND"]  .oracle-tag { background: #0d9488; }
+.oracle-card[data-oracle="COND"]     .oracle-tag { background: #7c3aed; }
+.oracle-card[data-oracle="FULL"]     .oracle-tag { background: #b91c1c; }
+
+.oracle-full-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+}
+
+.oracle-desc {
+    font-size: 12.5px;
+    color: var(--text-light);
+    line-height: 1.55;
+    margin: 0 0 8px;
+}
+
+.oracle-formal {
+    font-size: 12px;
+    background: #f1f5f9;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 5px 5px 0;
+    padding: 6px 10px;
+    color: var(--text);
+    font-family: 'Georgia', serif;
+    line-height: 1.5;
+}
+
+/* How to read a cell */
+.cell-guide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.cell-guide-box {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 13px 15px;
+}
+
+.cell-guide-box h4 {
+    margin: 0 0 7px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+}
+
+.cell-guide-box p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.55;
+}
+
+/* Section headings inside htr-body */
+.htr-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-light);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 6px;
+    margin: 0 0 12px;
+}
+
+/* ── Misc ────────────────────────────────────────────────── */
+.nobr { white-space: nowrap; }
+.little { font-size: 11px; }
+acronym { border-bottom: 1px dashed var(--primary-light); color: var(--primary); }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 680px) {
+    .site-header  { padding: 14px 16px; flex-direction: column; text-align: center; }
+    .controls-grid { grid-template-columns: 1fr; }
+    .main-content  { padding: 14px 10px 32px; gap: 12px; }
+    .maintainers-bar { text-align: center; padding: 7px 12px; }
+    .oracle-grid  { grid-template-columns: 1fr 1fr; }
+    .cell-guide   { grid-template-columns: 1fr; }
+    .htr-body     { padding: 16px 14px; }
+}
+
+@media (max-width: 460px) {
+    .oracle-grid  { grid-template-columns: 1fr; }
 }
