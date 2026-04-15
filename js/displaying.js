@@ -27,6 +27,35 @@ function showComment(html) {
 
 // ── Cell selection ────────────────────────────────────────────────────────────────
 
+// Human-readable label for each cell id
+var CELL_LABEL_MAP = {
+    sampSamp:'SAMP × SAMP', dualSamp:'DUAL × SAMP', dualDual:'DUAL × DUAL',
+    pairSamp:'PAIRCOND × SAMP', pairDual:'PAIRCOND × DUAL', pairPair:'PAIRCOND × PAIRCOND',
+    subSamp:'SUBCOND × SAMP', subDual:'SUBCOND × DUAL', subPair:'SUBCOND × PAIRCOND', subSub:'SUBCOND × SUBCOND',
+    condSamp:'COND × SAMP', condDual:'COND × DUAL', condPair:'COND × PAIRCOND', condSub:'COND × SUBCOND', condCond:'COND × COND',
+    fullSamp:'FULL × SAMP', fullDual:'FULL × DUAL', fullPair:'FULL × PAIRCOND', fullSub:'FULL × SUBCOND', fullCond:'FULL × COND',
+};
+
+// Update the "Suggest for selected cell" issue link with cell-specific pre-fill
+function updateIssueLink(cellId) {
+    var btn = document.getElementById('btn-issue-cell');
+    if (!btn) return;
+    var label = CELL_LABEL_MAP[cellId] || cellId;
+    var inp = ReadInput ? ReadInput() : [];
+    var boundType = '';
+    if (inp[2] === 'UB') boundType = 'Upper Bound';
+    else if (inp[2] === 'LB') boundType = 'Lower Bound';
+    var title = encodeURIComponent('Result suggestion: ' + label);
+    var body = encodeURIComponent(
+        '**Cell (row \u00d7 col oracle):** ' + label + '\n' +
+        '**Bound type (UB / LB):** ' + (boundType || '') + '\n' +
+        '**Complexity:** \n' +
+        '**Reference (arXiv or DOI):** \n' +
+        '**Additional notes:** '
+    );
+    btn.href = 'https://github.com/distributiontesting/distributiontesting.github.io/issues/new?title=' + title + '&body=' + body;
+}
+
 // Called when user clicks a formula cell.
 function selectCell(cellId) {
     // Check the hidden radio
@@ -40,6 +69,7 @@ function selectCell(cellId) {
     var td = document.querySelector('[data-cell="' + cellId + '"]');
     if (td) td.classList.add('selected-cell');
 
+    updateIssueLink(cellId);
     displayComments();
 }
 

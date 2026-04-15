@@ -520,6 +520,51 @@
     <div id="resultcomment">Click any cell above to see its reference or derivation.</div>
   </div>
 
+  <!-- ── Contribute ───────────────────────────────────────────── -->
+  <div class="contribute-card">
+    <div class="contribute-header">Contribute</div>
+    <div class="contribute-body">
+      <p class="contribute-intro">
+        This table is openly maintained. If you know a result that is missing, incorrect, or has been recently published, please comment via a GitHub Issue or submit a pull request directly.
+      </p>
+      <div class="contribute-grid">
+
+        <div class="contribute-option">
+          <div class="contribute-option-title">Comment or Report an Error</div>
+          <p class="contribute-option-desc">
+            Open a GitHub Issue to suggest a correction, flag a missing result, or ask a question.
+            Click a table cell first, then use the button below to pre-fill the issue with that cell's details.
+          </p>
+          <div class="contribute-btns">
+            <a id="btn-issue-cell"
+               class="contribute-btn contribute-btn-primary"
+               href="https://github.com/distributiontesting/distributiontesting.github.io/issues/new?title=Result+suggestion&body=%3C%21--%20Describe+the+result+or+correction+below+--%3E%0A%0A**Cell+%28row+%C3%97+col+oracle%29%3A**+%0A**Bound+type+%28UB+%2F+LB%29%3A**+%0A**Complexity%3A**+%0A**Reference+%28arXiv+or+DOI%29%3A**+%0A**Additional+notes%3A**"
+               target="_blank" rel="noopener">Suggest for selected cell</a>
+            <a class="contribute-btn contribute-btn-secondary"
+               href="https://github.com/distributiontesting/distributiontesting.github.io/issues"
+               target="_blank" rel="noopener">View all issues</a>
+          </div>
+        </div>
+
+        <div class="contribute-option">
+          <div class="contribute-option-title">Submit a Pull Request</div>
+          <p class="contribute-option-desc">
+            Results are stored in <code>data.csv</code>. Each entry specifies the oracle pair, bound type, LaTeX formula, and reference key. Fork the repo, add your entry, and open a PR.
+          </p>
+          <div class="contribute-btns">
+            <a class="contribute-btn contribute-btn-primary"
+               href="https://github.com/distributiontesting/distributiontesting.github.io/edit/master/data.csv"
+               target="_blank" rel="noopener">Edit data.csv on GitHub</a>
+            <a class="contribute-btn contribute-btn-secondary"
+               href="https://github.com/distributiontesting/distributiontesting.github.io/fork"
+               target="_blank" rel="noopener">Fork repo</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- ── Notes ─────────────────────────────────────────────────── -->
   <div class="notes-card">
     <h3>Notes</h3>
