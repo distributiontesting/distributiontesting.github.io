@@ -9,9 +9,9 @@
 // Resolve {refVarName} placeholders in comment strings at runtime,
 // after CreateRefLink() has populated the reference anchor variables.
 function resolveComment(template) {
-    return template.replace(/\{(\w+)\}/g, function(_match, refName) {
+    return template.replace(/\[\{(\w+)\}\]/g, function(_match, refName) {
         var val = (typeof window[refName] !== 'undefined') ? window[refName] : null;
-        return val ? val : ('[' + refName + ']');
+        return val ? ('[' + val + ']') : ('[' + refName + ']');
     });
 }
 

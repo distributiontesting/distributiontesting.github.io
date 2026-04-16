@@ -110,14 +110,14 @@
           \(\Sigma\) of size \(N\), and we wish to decide:
         </p>
         <p style="text-align:center; margin:0; font-size:14.5px;">
-          either &nbsp;\(d(P,Q) \leq \varepsilon_1\)&nbsp; (they are <em>close</em>)
+          either &nbsp;\(d(P,Q) \leq \varepsilon\)&nbsp; (they are <em>close</em>)
           &nbsp;&nbsp; vs &nbsp;&nbsp;
-          \(d(P,Q) \geq \varepsilon_2\)&nbsp; (they are <em>far</em>),
+          \(d(P,Q) \geq \eta\)&nbsp; (they are <em>far</em>),
         </p>
         <p>
-          where \(d\) is a distance measure (\(d_{\mathrm{TV}}\), etc.) and
-          \(\varepsilon_1 < \varepsilon_2\) are the closeness and farness thresholds.
-          The <em>non-tolerant</em> case sets \(\varepsilon_1 = 0\) (exact equality vs. far).
+          where \(d\) is a distance measure (\(d_{\mathrm{TV}}\), etc.),
+          \(\varepsilon\) is the <em>closeness</em> threshold, and \(\eta > \varepsilon\) is the <em>farness</em> threshold.
+          The <em>non-tolerant</em> case sets \(\varepsilon = 0\) (exact equality vs. far), leaving \(\eta\) as the sole parameter.
         </p>
         <p>
           Since \(P\) and \(Q\) are unknown, we can only interact with them through
@@ -136,7 +136,7 @@
 
           <div class="arrow-block">
             <div class="arrow-line">⟷</div>
-            <div class="arrow-label">Test:<br>\(d(P,Q) \leq \varepsilon_1\)?<br><em>vs</em><br>\(d(P,Q) \geq \varepsilon_2\)?</div>
+            <div class="arrow-label">Test:<br>\(d(P,Q) \leq \varepsilon\)?<br><em>vs</em><br>\(d(P,Q) \geq \eta\)?</div>
           </div>
 
           <div class="dist-box">
@@ -353,8 +353,8 @@
             <h4>Notation</h4>
             <p>
               \(N = |\Sigma|\) is the support size.
-              \(\varepsilon\) is the farness parameter (\(= \varepsilon_2\) in the tolerant case,
-              or the single threshold in the non-tolerant case).
+              \(\varepsilon\) is the <em>closeness</em> parameter and \(\eta\) is the <em>farness</em> parameter, with \(\eta > \varepsilon \geq 0\).
+              In the <em>non-tolerant</em> setting \(\varepsilon = 0\), so bounds are stated in terms of \(\eta\) alone (written as \(\varepsilon\) in that column for brevity).
               \(d\) is the dimension for high-dimensional distributions over \(\{0,1\}^d\).
             </p>
           </div>
@@ -534,6 +534,9 @@
           For joint distributions on \(d\) dimensions, the support is \(\Sigma^d\) and the support size is \(N^d\).</li>
       <li>Query complexity counts the number of oracle calls needed to distinguish the null hypothesis
           from the alternative hypothesis, up to the specified distances.</li>
+      <li><strong>Notation convention:</strong> \(\varepsilon\) denotes the <em>closeness</em> threshold and \(\eta\) the <em>farness</em> threshold (\(\eta > \varepsilon \geq 0\)).
+          In the <em>non-tolerant</em> setting the closeness threshold is \(\varepsilon = 0\), so bounds depend only on the farness threshold, written as \(\varepsilon\) for brevity in that column.
+          In the <em>tolerant</em> setting both parameters appear.</li>
       <li>Cells marked <strong>?</strong> represent open problems.</li>
     </ol>
   </div>
@@ -760,6 +763,19 @@
   journal = {arXiv preprint arXiv:2408.02347}, year = {2024}
 }</div>
           <div class="paper_authors">Tomer Adar, Eldar Fischer, Amit Levi</div>
+        </li>
+
+        <li>
+          <script>var canonne2021price; CreateRefLink('canonne2021price');</script>
+          <span class="paper_title">The Price of Tolerance in Distribution Testing</span>
+          <span class="paper_link">[ <a href="https://arxiv.org/pdf/2106.13414" target="_blank">Paper</a> |
+            <script>CreateAbstractBibTeXLinks('canonne2021price');</script> ]</span>
+          <div class="bibtex" id="canonne2021price_bibtex">@article{canonne2021price,
+  title   = {The Price of Tolerance in Distribution Testing},
+  author  = {Canonne, Cl{\'e}ment L. and Jain, Ayush and Kamath, Gautam and Li, Jerry},
+  journal = {arXiv preprint arXiv:2106.13414}, year = {2021}
+}</div>
+          <div class="paper_authors">Cl&eacute;ment L. Canonne, Ayush Jain, Gautam Kamath, Jerry Li</div>
         </li>
 
       </ol>

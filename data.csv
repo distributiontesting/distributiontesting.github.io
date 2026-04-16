@@ -10,14 +10,14 @@ zero_tv,ub,SAMPSAMP,"O\left(\frac{N^{2/3}}{\varepsilon^{8/3}}\right)","Follows f
 zero_tv,ub,DUALSAMP,"O\left(\frac{N^{2/3}}{\varepsilon^{8/3}}\right)","Follows from SAMP vs SAMP upper bound."
 zero_tv,ub,DUALDUAL,"O\left(\frac{1}{\varepsilon}\right)","Follows from [{canonne2014testing}]."
 zero_tv,ub,PAIRSAMP,"O\left(\frac{N^{2/3}}{\varepsilon^{8/3}}\right)","Follows from SAMP vs SAMP upper bound."
-zero_tv,ub,PAIRDUAL,"O\left(\frac{\log{N}}{\varepsilon^2}+\frac{\sqrt{N}\log{N}}{\varepsilon^4}\right)","Follows from [{potescalable}]."
+zero_tv,ub,PAIRDUAL,"O\left(\frac{\log N}{\varepsilon^2}+\frac{\sqrt{\log N}}{\varepsilon^4}\right)","Follows from [{potescalable}]."
 zero_tv,ub,PAIRPAIR,"O\left(\frac{\log^6{N}}{\varepsilon^{21}}\right)","Follows from [{canonne2015testing}]."
 zero_tv,ub,SUBSAMP,"O\left(\frac{N^{2/3}}{\varepsilon^{8/3}}\right)","Follows from SAMP vs SAMP upper bound."
 zero_tv,ub,SUBDUAL,"O\left(\frac{dN}{\varepsilon^{2}}\right)","Follows from [{adar2024improved}]."
 zero_tv,ub,SUBPAIR,,Open problem.
 zero_tv,ub,SUBSUB,"O\left(\frac{d^{3}N}{\varepsilon^{4}}\right)","Follows from [{kumar2023tolerant}]."
 zero_tv,ub,CONDSAMP,"O\left(\frac{N^{2/3}}{\varepsilon^{8/3}}\right)","Follows from SAMP vs SAMP upper bound."
-zero_tv,ub,CONDDUAL,"O\left(\frac{\log{N}}{\varepsilon^2}+\frac{\sqrt{N}\log{N}}{\varepsilon^4}\right)","Follows from PAIRCOND vs DUAL."
+zero_tv,ub,CONDDUAL,"O\left(\frac{\log N}{\varepsilon^2}+\frac{\sqrt{\log N}}{\varepsilon^4}\right)","Follows from PAIRCOND vs DUAL."
 zero_tv,ub,CONDPAIR,"O\left(\frac{\log^6{N}}{\varepsilon^{21}}\right)","Follows from PAIRCOND vs PAIRCOND."
 zero_tv,ub,CONDSUB,"O\left(\frac{d^{3}N}{\varepsilon^{4}}\right)","Follows from SUBCOND vs SUBCOND."
 zero_tv,ub,CONDCOND,"O\left(\frac{\log{\log{N}}}{\varepsilon^5}\right)","Follows from [{falahatgar2015faster}]."
@@ -49,44 +49,44 @@ zero_tv,lb,FULLSUB,"\Omega\left(\frac{\sqrt{d}}{\varepsilon^2}\right)","Follows 
 zero_tv,lb,FULLCOND,,Open problem.
 #
 # ── TOLERANT  (closeness = d_TV,  farness = d_TV) ───────────────────────────────────────────────────────────────────────────────
-tv_tv,ub,SAMPSAMP,,Open problem.
-tv_tv,ub,DUALSAMP,,Open problem.
-tv_tv,ub,DUALDUAL,"O\left(\frac{1}{\varepsilon^2}\right)","Follows from [{canonne2014testing}]."
-tv_tv,ub,PAIRSAMP,,Open problem.
-tv_tv,ub,PAIRDUAL,"O\left(\frac{\log{N}}{\varepsilon^2}+\frac{\sqrt{N}\log{N}}{\varepsilon^4}\right)","Follows from [{potescalable}]."
+tv_tv,ub,SAMPSAMP,"O\left(\max\left\{\frac{\sqrt{N}}{\eta^2},\frac{N^{2/3}}{\eta^{4/3}}\right\} + N \cdot \frac{\varepsilon}{\eta^2}\right)",Follows from [{canonne2021price}].
+tv_tv,ub,DUALSAMP,"O\left(\max\left\{\frac{\sqrt{N}}{\eta^2},\frac{N^{2/3}}{\eta^{4/3}}\right\} + N \cdot \frac{\varepsilon}{\eta^2}\right)",Follows from SAMP vs SAMP upper bound.
+tv_tv,ub,DUALDUAL,"O\left(\frac{1}{(\eta - \varepsilon)^2}\right)","Follows from [{canonne2014testing}]."
+tv_tv,ub,PAIRSAMP,"O\left(\max\left\{\frac{\sqrt{N}}{\eta^2},\frac{N^{2/3}}{\eta^{4/3}}\right\} + N \cdot \frac{\varepsilon}{\eta^2}\right)",Follows from SAMP vs SAMP upper bound.
+tv_tv,ub,PAIRDUAL,"O\left(\frac{\log N}{\eta^2}+\frac{\sqrt{\log N}}{\eta^3(\eta-\varepsilon)}\right)","Follows from [{potescalable}]."
 tv_tv,ub,PAIRPAIR,,Open problem.
-tv_tv,ub,SUBSAMP,,Open problem.
-tv_tv,ub,SUBDUAL,"O\left(\frac{d^{2}N}{\varepsilon^{4}}\right)","Follows from [{bhattacharyya2024testing}]."
+tv_tv,ub,SUBSAMP,"O\left(\max\left\{\frac{\sqrt{N}}{\eta^2},\frac{N^{2/3}}{\eta^{4/3}}\right\} + N \cdot \frac{\varepsilon}{\eta^2}\right)",Follows from SAMP vs SAMP upper bound.
+tv_tv,ub,SUBDUAL,"O\left(\frac{d^{2}N}{(\eta - \varepsilon)^{4}}\right)","Follows from [{bhattacharyya2024testing}]."
 tv_tv,ub,SUBPAIR,,Open problem.
-tv_tv,ub,SUBSUB,"O\left(\frac{d^{3}N}{\varepsilon^{4}}\right)","Follows from [{kumar2023tolerant}]."
-tv_tv,ub,CONDSAMP,,Open problem.
-tv_tv,ub,CONDDUAL,"O\left(\frac{\log{N}}{\varepsilon^2}+\frac{\sqrt{N}\log{N}}{\varepsilon^4}\right)","Follows from PAIRCOND vs DUAL."
+tv_tv,ub,SUBSUB,"O\left(\frac{d^{3}N}{(\eta - \varepsilon)^{4}}\right)","Follows from [{kumar2023tolerant}]."
+tv_tv,ub,CONDSAMP,"O\left(\max\left\{\frac{\sqrt{N}}{\eta^2},\frac{N^{2/3}}{\eta^{4/3}}\right\} + N \cdot \frac{\varepsilon}{\eta^2}\right)",Follows from SAMP vs SAMP upper bound.
+tv_tv,ub,CONDDUAL,"O\left(\frac{\log N}{\eta^2}+\frac{\sqrt{\log N}}{\eta^3(\eta-\varepsilon)}\right)","Follows from PAIRCOND vs DUAL."
 tv_tv,ub,CONDPAIR,,Open problem.
-tv_tv,ub,CONDSUB,"O\left(\frac{d^{3}N}{\varepsilon^{4}}\right)","Follows from SUBCOND vs SUBCOND."
+tv_tv,ub,CONDSUB,"O\left(\frac{d^{3}N}{(\eta - \varepsilon)^{4}}\right)","Follows from SUBCOND vs SUBCOND."
 tv_tv,ub,CONDCOND,,Open problem.
-tv_tv,ub,FULLSAMP,,Open problem.
-tv_tv,ub,FULLDUAL,"O\left(\frac{1}{\varepsilon^2}\right)","Follows from DUAL vs DUAL upper bound."
-tv_tv,ub,FULLPAIR,"O\left(\frac{\log{N}}{\varepsilon^2}+\frac{\sqrt{N}\log{N}}{\varepsilon^4}\right)","Follows from DUAL vs PAIRCOND."
-tv_tv,ub,FULLSUB,"O\left(\frac{d^{2}N}{\varepsilon^{4}}\right)","Follows from [{bhattacharyya2024testing}]."
+tv_tv,ub,FULLSAMP,"O\left(\frac{\sqrt{N}}{\eta^2} + N \cdot \frac{\varepsilon}{\eta^2}\right)",Follows from [{canonne2021price}].
+tv_tv,ub,FULLDUAL,"O\left(\frac{1}{(\eta - \varepsilon)^2}\right)","Follows from DUAL vs DUAL upper bound."
+tv_tv,ub,FULLPAIR,"O\left(\frac{\log N}{\eta^2}+\frac{\sqrt{\log N}}{\eta^3(\eta-\varepsilon)}\right)","Follows from DUAL vs PAIRCOND."
+tv_tv,ub,FULLSUB,"O\left(\frac{d^{2}N}{(\eta - \varepsilon)^{4}}\right)","Follows from [{bhattacharyya2024testing}]."
 tv_tv,ub,FULLCOND,"O\left(\frac{1}{\varepsilon^4}\right)","Follows from [{nar2020cond}]."
 #
-tv_tv,lb,SAMPSAMP,"\Omega\left(\frac{N}{\varepsilon^{2}\log{N}}\right)","Follows from FULL vs SAMP lower bound."
-tv_tv,lb,DUALSAMP,"\Omega\left(\frac{N}{\varepsilon^{2}\log{N}}\right)","Follows from FULL vs SAMP lower bound."
-tv_tv,lb,DUALDUAL,"\Omega\left(\frac{1}{\varepsilon^2}\right)","Follows from FULL vs DUAL lower bound."
-tv_tv,lb,PAIRSAMP,"\Omega\left(\frac{N}{\varepsilon^{2}\log{N}}\right)","Follows from FULL vs SAMP lower bound."
-tv_tv,lb,PAIRDUAL,"\Omega\left(\frac{1}{\varepsilon^2}\right)","Follows from FULL vs DUAL lower bound."
+tv_tv,lb,SAMPSAMP,"\Omega\left(\max\left\{\frac{\sqrt{N}}{\eta^2},\frac{N^{2/3}}{\eta^{4/3}}\right\} + \frac{N}{\log N} \cdot \frac{\varepsilon}{\eta^2}\right)","Follows from FULL vs SAMP lower bound."
+tv_tv,lb,DUALSAMP,"\Omega\left(\frac{\sqrt{N}}{\eta^2} + \frac{N}{\log N} \cdot \frac{\varepsilon}{\eta^2}\right)","Follows from FULL vs SAMP lower bound."
+tv_tv,lb,DUALDUAL,"\Omega\left(\frac{1}{(\eta - \varepsilon)^2}\right)","Follows from FULL vs DUAL lower bound."
+tv_tv,lb,PAIRSAMP,"\Omega\left(\frac{\sqrt{N}}{\eta^2} + \frac{N}{\log N} \cdot \frac{\varepsilon}{\eta^2}\right)","Follows from FULL vs SAMP lower bound."
+tv_tv,lb,PAIRDUAL,"\Omega\left(\frac{1}{(\eta - \varepsilon)^2}\right)","Follows from FULL vs DUAL lower bound."
 tv_tv,lb,PAIRPAIR,"\Omega\left(\sqrt{\frac{\log{N}}{\log\log{N}}}\right)","Follows from FULL vs PAIRCOND lower bound."
-tv_tv,lb,SUBSAMP,"\Omega\left(\frac{N}{\varepsilon^{2}\log{N}}\right)","Follows from FULL vs SAMP lower bound."
-tv_tv,lb,SUBDUAL,"\Omega\left(\frac{1}{\varepsilon^2}\right)","Follows from FULL vs DUAL lower bound."
+tv_tv,lb,SUBSAMP,"\Omega\left(\frac{\sqrt{N}}{\eta^2} + \frac{N}{\log N} \cdot \frac{\varepsilon}{\eta^2}\right)","Follows from FULL vs SAMP lower bound."
+tv_tv,lb,SUBDUAL,"\Omega\left(\frac{1}{(\eta - \varepsilon)^2}\right)","Follows from FULL vs DUAL lower bound."
 tv_tv,lb,SUBPAIR,"\Omega\left(\sqrt{\frac{\log{N}}{\log\log{N}}}\right)","Follows from FULL vs PAIRCOND lower bound."
 tv_tv,lb,SUBSUB,"\Omega\left(\frac{\sqrt{n}}{\log{n}}\right)","Follows from Theorem 11 of [{canonne2017testing}]."
-tv_tv,lb,CONDSAMP,"\Omega\left(\frac{N}{\varepsilon^{2}\log{N}}\right)","Follows from FULL vs SAMP lower bound."
-tv_tv,lb,CONDDUAL,"\Omega\left(\frac{1}{\varepsilon^2}\right)","Follows from FULL vs DUAL lower bound."
+tv_tv,lb,CONDSAMP,"\Omega\left(\frac{\sqrt{N}}{\eta^2} + \frac{N}{\log N} \cdot \frac{\varepsilon}{\eta^2}\right)","Follows from FULL vs SAMP lower bound."
+tv_tv,lb,CONDDUAL,"\Omega\left(\frac{1}{(\eta - \varepsilon)^2}\right)","Follows from FULL vs DUAL lower bound."
 tv_tv,lb,CONDPAIR,"\Omega\left(\sqrt{\frac{\log{N}}{\log\log{N}}}\right)","Follows from FULL vs PAIRCOND lower bound."
-tv_tv,lb,CONDSUB,"\Omega\left(\frac{\sqrt{n}}{\varepsilon^2}\right)","Follows from FULL vs SUBCOND lower bound."
+tv_tv,lb,CONDSUB,"\Omega\left(\frac{\sqrt{n}}{(\eta - \varepsilon)^2}\right)","Follows from FULL vs SUBCOND lower bound."
 tv_tv,lb,CONDCOND,"\Omega\left(\log{\log{N}}\right)","Follows from [{chakraborty2024tight}]."
-tv_tv,lb,FULLSAMP,"\Omega\left(\frac{N}{\varepsilon^{2}\log{N}}\right)","Follows from [{jiao2018minimax}]."
-tv_tv,lb,FULLDUAL,"\Omega\left(\frac{1}{\varepsilon^2}\right)","Follows from [{canonne2014testing}]."
+tv_tv,lb,FULLSAMP,"\Omega\left(\frac{\sqrt{N}}{\eta^2} + \frac{N}{\log N} \cdot \frac{\varepsilon}{\eta^2}\right)","Follows from [{canonne2021price}]. Earlier work showed \(\Omega\left(\frac{N}{\log N} \cdot \frac{1}{(\eta - \varepsilon)^2}\right)\) [{jiao2018minimax}]."
+tv_tv,lb,FULLDUAL,"\Omega\left(\frac{1}{(\eta - \varepsilon)^2}\right)","Follows from [{canonne2014testing}]."
 tv_tv,lb,FULLPAIR,"\Omega\left(\sqrt{\frac{\log{N}}{\log\log{N}}}\right)","Follows from [{canonne2015testing}]."
-tv_tv,lb,FULLSUB,"\Omega\left(\frac{\sqrt{n}}{\varepsilon^2}\right)","Follows from Theorem 10 of [{canonne2017testing}]."
+tv_tv,lb,FULLSUB,"\Omega\left(\frac{\sqrt{n}}{(\eta - \varepsilon)^2}\right)","Follows from Theorem 10 of [{canonne2017testing}]."
 tv_tv,lb,FULLCOND,,Open problem.

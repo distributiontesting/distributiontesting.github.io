@@ -22,7 +22,17 @@ function ShowID(id, latex) {
 }
 
 function showComment(html) {
-    document.getElementById('resultcomment').innerHTML = html || '&nbsp;';
+    var el = document.getElementById('resultcomment');
+    el.innerHTML = html || '&nbsp;';
+    if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(el, {
+            delimiters: [
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true  }
+            ],
+            throwOnError: false
+        });
+    }
 }
 
 // ── Cell selection ────────────────────────────────────────────────────────────────
