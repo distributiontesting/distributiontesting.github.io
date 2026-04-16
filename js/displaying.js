@@ -24,6 +24,7 @@ function ShowID(id, latex) {
 function showComment(html) {
     var el = document.getElementById('resultcomment');
     el.innerHTML = html || '&nbsp;';
+    el.removeAttribute('data-empty');
     if (typeof renderMathInElement !== 'undefined') {
         renderMathInElement(el, {
             delimiters: [
@@ -36,6 +37,8 @@ function showComment(html) {
 }
 
 // ── Cell selection ────────────────────────────────────────────────────────────────
+
+var cellSelected = false;  // true once the user has explicitly clicked a cell
 
 // Human-readable label for each cell id
 var CELL_LABEL_MAP = {
@@ -68,6 +71,8 @@ function updateIssueLink(cellId) {
 
 // Called when user clicks a formula cell.
 function selectCell(cellId) {
+    cellSelected = true;
+
     // Check the hidden radio
     var radio = document.getElementById('radio_' + cellId);
     if (radio) radio.checked = true;
@@ -95,6 +100,7 @@ var CELL_KEY_MAP = {
 };
 
 function displayComments() {
+    if (!cellSelected) return;
     var selected = document.querySelector('input[name="combaton"]:checked');
     if (!selected) return;
     var key = CELL_KEY_MAP[selected.value];
