@@ -290,7 +290,12 @@ hr { border: none; border-top: 1px solid var(--border); margin: 0; }
 .notes-card ol { margin: 0; padding-left: 20px; color: #78350f; }
 .notes-card ol li { margin-bottom: 7px; line-height: 1.5; }
 
-/* ── References ──────────────────────────────────────────── */
+/* ── References (collapsible) ────────────────────────────── */
+details.references-card { overflow: hidden; }
+details.references-card > summary { list-style: none; cursor: pointer; user-select: none; justify-content: space-between; }
+details.references-card > summary::-webkit-details-marker { display: none; }
+details.references-card > summary .dropdown-arrow { font-size: 16px; transition: transform 0.2s; }
+details.references-card[open] > summary .dropdown-arrow { transform: rotate(180deg); }
 .references-card .card-body { padding: 20px 24px; }
 
 ol.bib { padding-left: 26px; margin: 0; }
