@@ -251,10 +251,10 @@
             <p class="oracle-desc">
               Each query is either a sample draw from the distribution, or a
               <em>probability evaluation</em> at any chosen element.
-              Provides arithmetic access to probability values but no conditional samples.
+              Provides access to probability values.
             </p>
             <div class="oracle-formal">
-              \(\mathsf{DUAL}(P)\): either draw \(x \sim P\), or
+              \(\mathsf{DUAL}(P, x)\): either draw \(x \sim P\), or
               query \(P(x)\) for any chosen \(x \in \Sigma\).
             </div>
           </div>
@@ -267,7 +267,6 @@
             <p class="oracle-desc">
               For high-dimensional distributions over \(\{0,1\}^d\), conditions on a
               <em>subcube</em>: a partial assignment fixing some coordinates.
-              Captures distributions arising from structured samplers.
               Known to be simulatable by COND; strictly stronger than DUAL.
             </p>
             <div class="oracle-formal">
@@ -314,13 +313,11 @@
               <span class="oracle-full-name">Full Evaluation Oracle</span>
             </div>
             <p class="oracle-desc">
-              The strongest oracle. Returns the <em>exact probability</em> of any queried element.
+              The strongest oracle. 
               Essentially provides read access to the full probability table.
-              Only appears as a row (not a column) in the current table.
             </p>
             <div class="oracle-formal">
-              \(\mathsf{FULL}(P, x)\): return \(P(x)\) exactly,
-              for any \(x \in \Sigma\).
+              \(\mathsf{FULL}(P)\): returns the entire \(P(x)\) table for all \(x \in \Sigma\).
             </div>
           </div>
 
@@ -337,7 +334,6 @@
               An <strong>upper bound</strong> \(f(N,\varepsilon)\) means there <em>exists</em>
               an algorithm that uses at most \(O(f(N,\varepsilon))\) queries and solves the problem
               correctly with probability \(\geq 2/3\).
-              It is an achievability result — the algorithm has been explicitly constructed.
             </p>
           </div>
           <div class="cell-guide-box">
@@ -346,7 +342,6 @@
               A <strong>lower bound</strong> \(g(N,\varepsilon)\) means that <em>every</em>
               algorithm for this oracle combination must use at least \(\Omega(g(N,\varepsilon))\)
               queries in the worst case.
-              It is an impossibility result proven for the specific pair of oracles in that cell.
             </p>
           </div>
           <div class="cell-guide-box">
@@ -363,7 +358,7 @@
             <p>
               A <strong>?</strong> in a cell means no non-trivial bound is known for that
               oracle combination and distance setting. These represent open problems in
-              distribution testing — contributions are welcome!
+              distribution testing!
             </p>
           </div>
         </div>
