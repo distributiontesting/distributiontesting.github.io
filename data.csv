@@ -42,7 +42,7 @@ zero_tv,lb,CONDDUAL,"\Omega\left(\frac{1}{\varepsilon}\right)","Follows from FUL
 zero_tv,lb,CONDPAIR,"\Omega\left(\sqrt{\frac{\log{N}}{\log\log{N}}}\right)","Follows from FULL vs PAIRCOND lower bound."
 zero_tv,lb,CONDSUB,"\Omega\left(\frac{\sqrt{d}}{\varepsilon^2}\right)","Follows from COND vs COND lower bound."
 zero_tv,lb,CONDCOND,"\Omega\left(\log{\log{N}}\right)","Follows from [{chakraborty2024tight}]."
-zero_tv,lb,FULLSAMP,"\Omega\left(\frac{\sqrt{N}}{\varepsilon^2}\right)","Follows from [{valiant2017automatic}]."
+zero_tv,lb,FULLSAMP,"\Omega\left(\frac{\sqrt{N}}{\varepsilon^2}\right)","Follows from [{paninski2008coincidence}]."
 zero_tv,lb,FULLDUAL,"\Omega\left(\frac{1}{\varepsilon}\right)","Follows from [{canonne2014testing}]."
 zero_tv,lb,FULLPAIR,"\Omega\left(\sqrt{\frac{\log{N}}{\log\log{N}}}\right)","Follows from [{canonne2015testing}]."
 zero_tv,lb,FULLSUB,"\Omega\left(\frac{\sqrt{d}}{\varepsilon^2}\right)","Follows from Theorem 7 of [{canonne2017testing}]."
